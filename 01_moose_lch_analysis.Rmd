@@ -1,0 +1,38 @@
+---
+title: "Moose Landcape Change Hypothesis Analysis"
+author: "Tyler Muhly"
+date: "12/12/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+ provide spaital information on wildlfie habitat that can be linked to wildlife popualtion data
+
+
+## Methods
+
+### Study area
+- 5 study areas
+
+- 100% MCP of annual cooalred adult female moose in each area
+
+
+
+```{r, management unit spatial data, echo = T, message = F, warning = F}
+library (sf)
+library (data.table)
+
+
+
+```
+
+
+
+- 'disturabnce' = area cut 1-8 years old + area beetle 1-8 yeas old
+
+- last year of survival year is year of distiurbance data, e.g., 2014/15 survival yar = 2015 disturabnce year 
