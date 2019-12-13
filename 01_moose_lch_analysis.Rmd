@@ -4,6 +4,19 @@ author: "Tyler Muhly"
 date: "12/12/2019"
 output: html_document
 ---
+<!--
+Copyright 2019 Province of British Columbia
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and limitations under the License.
+-->
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -26,7 +39,24 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r, management unit spatial data, echo = T, message = F, warning = F}
 library (sf)
 library (data.table)
+library (here)
 
+# load the mcp's
+poly.sa.bc.14.15 <- sf::st_read (dsn = here ( "./data/mcp/PGS_JPRF_BigCreek_MCPs.gdb/PGS_JPRF_BigCreek_MCPs.gdb"),
+                         layer = "BigCreek_2014_15_MCP")
+poly.sa.bc.15.16 <- sf::st_read (dsn = here ( "./data/mcp/PGS_JPRF_BigCreek_MCPs.gdb/PGS_JPRF_BigCreek_MCPs.gdb"),
+                         layer = "BigCreek_2015_16_MCP")
+poly.sa.bc.16.17 <- sf::st_read (dsn = here ( "./data/mcp/PGS_JPRF_BigCreek_MCPs.gdb/PGS_JPRF_BigCreek_MCPs.gdb"),
+                         layer = "BigCreek_2016_17_MCP")
+poly.sa.bc.17.18 <- sf::st_read (dsn = here ( "./data/mcp/PGS_JPRF_BigCreek_MCPs.gdb/PGS_JPRF_BigCreek_MCPs.gdb"),
+                         layer = "BigCreek_2017_18_MCP")
+poly.sa.jprf.14.15 <- sf::st_read (dsn = here ( "./data/mcp/PGS_JPRF_BigCreek_MCPs.gdb/PGS_JPRF_BigCreek_MCPs.gdb"),
+                         layer = "JPRF_2014_15_MCP")
+
+
+plot (poly.sa.jprf.14.15)
+
+# bind them up and save them; export to data file as... ?
 
 
 ```
