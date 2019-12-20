@@ -34,7 +34,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 - 100% MCP of annual cooalred adult female moose in each area
 
-
+- 4 years of data
 
 ```{r, management unit spatial data, echo = T, message = F, warning = F}
 library (sf)
@@ -42,27 +42,282 @@ library (data.table)
 library (here)
 
 # load the mcp's
-poly.sa.bc.14.15 <- sf::st_read (dsn = here ( "./data/mcp/PGS_JPRF_BigCreek_MCPs.gdb/PGS_JPRF_BigCreek_MCPs.gdb"),
-                         layer = "BigCreek_2014_15_MCP")
-poly.sa.bc.15.16 <- sf::st_read (dsn = here ( "./data/mcp/PGS_JPRF_BigCreek_MCPs.gdb/PGS_JPRF_BigCreek_MCPs.gdb"),
-                         layer = "BigCreek_2015_16_MCP")
-poly.sa.bc.16.17 <- sf::st_read (dsn = here ( "./data/mcp/PGS_JPRF_BigCreek_MCPs.gdb/PGS_JPRF_BigCreek_MCPs.gdb"),
-                         layer = "BigCreek_2016_17_MCP")
-poly.sa.bc.17.18 <- sf::st_read (dsn = here ( "./data/mcp/PGS_JPRF_BigCreek_MCPs.gdb/PGS_JPRF_BigCreek_MCPs.gdb"),
-                         layer = "BigCreek_2017_18_MCP")
-poly.sa.jprf.14.15 <- sf::st_read (dsn = here ( "./data/mcp/PGS_JPRF_BigCreek_MCPs.gdb/PGS_JPRF_BigCreek_MCPs.gdb"),
-                         layer = "JPRF_2014_15_MCP")
+poly.sa.bc.14.15 <- st_transform (st_read (dsn = here ( "./data/mcp/PGS_JPRF_BigCreek_MCPs.gdb/PGS_JPRF_BigCreek_MCPs.gdb"),
+                         layer = "BigCreek_2014_15_MCP"), 
+                         crs = 3005) # setting these all to the same coordinate system
+poly.sa.bc.14.15$year <- 2015 # add year
+poly.sa.bc.15.16 <- st_transform (st_read (dsn = here ( "./data/mcp/PGS_JPRF_BigCreek_MCPs.gdb/PGS_JPRF_BigCreek_MCPs.gdb"),
+                         layer = "BigCreek_2015_16_MCP"), 
+                         crs = 3005)
+poly.sa.bc.15.16$year <- 2016 # add year
+poly.sa.bc.16.17 <- st_transform (st_read (dsn = here ( "./data/mcp/PGS_JPRF_BigCreek_MCPs.gdb/PGS_JPRF_BigCreek_MCPs.gdb"),
+                         layer = "BigCreek_2016_17_MCP"), 
+                         crs = 3005)
+poly.sa.bc.16.17$year <- 2017 # add year
+poly.sa.bc.17.18 <- st_transform (st_read (dsn = here ( "./data/mcp/PGS_JPRF_BigCreek_MCPs.gdb/PGS_JPRF_BigCreek_MCPs.gdb"),
+                         layer = "BigCreek_2017_18_MCP"), 
+                         crs = 3005)
+poly.sa.bc.17.18$year <- 2018 # add year
+poly.sa.jprf.14.15 <- st_transform (st_read (dsn = here ( "./data/mcp/PGS_JPRF_BigCreek_MCPs.gdb/PGS_JPRF_BigCreek_MCPs.gdb"),
+                         layer = "JPRF_2014_15_MCP"), 
+                         crs = 3005)
+poly.sa.jprf.14.15$year <- 2015 
+poly.sa.jprf.15.16 <- st_transform (st_read (dsn = here ( "./data/mcp/PGS_JPRF_BigCreek_MCPs.gdb/PGS_JPRF_BigCreek_MCPs.gdb"),
+                         layer = "JPRF_2015_16_MCP"), 
+                         crs = 3005)
+poly.sa.jprf.15.16$year <- 2016 
+poly.sa.jprf.16.17 <- st_transform (st_read (dsn = here ( "./data/mcp/PGS_JPRF_BigCreek_MCPs.gdb/PGS_JPRF_BigCreek_MCPs.gdb"),
+                         layer = "JPRF_2016_17_MCP"), 
+                         crs = 3005)
+poly.sa.jprf.16.17$year <- 2017
+poly.sa.jprf.17.18 <- st_transform (st_read (dsn = here ( "./data/mcp/PGS_JPRF_BigCreek_MCPs.gdb/PGS_JPRF_BigCreek_MCPs.gdb"),
+                         layer = "JPRF_2017_18_MCP"), 
+                         crs = 3005)
+poly.sa.jprf.17.18$year <- 2018
+poly.sa.pgs.14.15 <- st_transform (st_read (dsn = here ( "./data/mcp/PGS_JPRF_BigCreek_MCPs.gdb/PGS_JPRF_BigCreek_MCPs.gdb"),
+                         layer = "PGS_2014_15_MCP"), 
+                         crs = 3005)
+poly.sa.pgs.14.15$year <- 2015
+poly.sa.pgs.15.16 <- st_transform (st_read (dsn = here ( "./data/mcp/PGS_JPRF_BigCreek_MCPs.gdb/PGS_JPRF_BigCreek_MCPs.gdb"),
+                         layer = "PGS_2015_16_MCP"), 
+                         crs = 3005)
+poly.sa.pgs.15.16$year <- 2016
+poly.sa.pgs.16.17 <- st_transform (st_read (dsn = here ( "./data/mcp/PGS_JPRF_BigCreek_MCPs.gdb/PGS_JPRF_BigCreek_MCPs.gdb"),
+                         layer = "PGS_2016_17_MCP"), 
+                         crs = 3005)
+poly.sa.pgs.16.17$year <- 2017
+poly.sa.pgs.17.18 <- st_transform (st_read (dsn = here ( "./data/mcp/PGS_JPRF_BigCreek_MCPs.gdb/PGS_JPRF_BigCreek_MCPs.gdb"),
+                         layer = "PGS_2017_18_MCP"), 
+                         crs = 3005)  
+poly.sa.pgs.17.18$year <- 2018
+poly.sa.bon.14.15 <- st_transform (st_read (dsn = here ( "./data/mcp/bonaparte/Bon14_15MCP.mhp")), 
+                         crs = 3005)
+poly.sa.bon.14.15$year <- 2015
+poly.sa.bon.15.16 <- st_transform (st_read (dsn = here ( "./data/mcp/bonaparte/Bon15_16MCP.mhp")), 
+                         crs = 3005)
+poly.sa.bon.15.16$year <- 2016
+poly.sa.bon.16.17 <- st_transform (st_read (dsn = here ( "./data/mcp/bonaparte/Bon16_17MCP.mhp")), 
+                         crs = 3005)
+poly.sa.bon.16.17$year <- 2017
+poly.sa.bon.17.18 <- st_transform (st_read (dsn = here ( "./data/mcp/bonaparte/Bon17_18MCP.mhp")), 
+                         crs = 3005)
+poly.sa.bon.17.18$year <- 2018
+poly.sa.entiako <- st_transform (st_read (dsn = here ( "./data/mcp/entiako/mmcp100.mhp")), 
+                         crs = 3005)
 
+# bind them up by area, add area names adn make fields consistent
+# Big Creek
+poly.sa.bc <- rbind (poly.sa.bc.14.15, poly.sa.bc.15.16, poly.sa.bc.16.17, poly.sa.bc.17.18)
+poly.sa.bc$name_sa <- "Big Creek"
+poly.sa.bc$area_ha <- poly.sa.bc$area * 0.0001
+poly.sa.bc$Shape_Length <- NULL
+poly.sa.bc$Shape_Area <- NULL
+poly.sa.bc$area <- NULL
+poly.sa.bc$id <- 1
+names(poly.sa.bc)[names(poly.sa.bc) == "Shape"] = "geometry" # rename the geometry column
+st_geometry (poly.sa.bc) <- "geometry"
+rm (poly.sa.bc.14.15, poly.sa.bc.15.16, poly.sa.bc.16.17, poly.sa.bc.17.18)
+gc ()
 
-plot (poly.sa.jprf.14.15)
+# John Prince Research Forest
+poly.sa.jprf <- rbind (poly.sa.jprf.14.15, poly.sa.jprf.15.16, poly.sa.jprf.16.17, poly.sa.jprf.17.18)
+names(poly.sa.jprf)[names(poly.sa.jprf) == "Id"] = "id" # rename the Id column
+poly.sa.jprf$id <- 2
+poly.sa.jprf$area_ha <- (st_area (poly.sa.jprf$Shape) * 0.0001) # area needs to be calc'd
+poly.sa.jprf$name_sa <- "John Prince Research Forest"
+poly.sa.jprf$Shape_Length <- NULL
+poly.sa.jprf$Shape_Area <- NULL
+names(poly.sa.jprf)[names(poly.sa.jprf) == "Shape"] = "geometry" # rename the geometry column
+st_geometry (poly.sa.jprf) <- "geometry"
+rm (poly.sa.jprf.14.15, poly.sa.jprf.15.16, poly.sa.jprf.16.17, poly.sa.jprf.17.18)
+gc ()
 
-# bind them up and save them; export to data file as... ?
+# Prince George South
+poly.sa.pgs <- rbind (poly.sa.pgs.14.15, poly.sa.pgs.15.16, poly.sa.pgs.16.17, poly.sa.pgs.17.18)
+names(poly.sa.pgs)[names(poly.sa.pgs) == "Id"] = "id" 
+poly.sa.pgs$id <- 3
+poly.sa.pgs$area_ha <- (st_area (poly.sa.pgs$Shape) * 0.0001)
+poly.sa.pgs$name_sa <- "Prince George South"
+poly.sa.pgs$Shape_Length <- NULL
+poly.sa.pgs$Shape_Area <- NULL
+names(poly.sa.pgs)[names(poly.sa.pgs) == "Shape"] = "geometry" # rename the geometry column
+st_geometry (poly.sa.pgs) <- "geometry"
+rm (poly.sa.pgs.14.15, poly.sa.pgs.15.16, poly.sa.pgs.16.17, poly.sa.pgs.17.18)
+gc ()
 
+# Bonaparte
+poly.sa.bon <- rbind (poly.sa.bon.14.15, poly.sa.bon.15.16, poly.sa.bon.16.17, poly.sa.bon.17.18)
+names(poly.sa.bon)[names(poly.sa.bon) == "Id"] = "id" 
+poly.sa.bon$id <- 4
+poly.sa.bon$area_ha <- (st_area (poly.sa.bon$geometry) * 0.0001)
+poly.sa.bon$name_sa <- "Bonaparte"
+rm (poly.sa.bon.14.15, poly.sa.bon.15.16, poly.sa.bon.16.17, poly.sa.bon.17.18)
+gc ()
 
+# Entiako
+poly.sa.entiako$year <- 2014
+poly.sa.entiako [2, 4] <- 2015 # making year consitent with other data
+poly.sa.entiako [3, 4] <- 2016
+poly.sa.entiako [4, 4] <- 2017
+poly.sa.entiako [5, 4] <- 2018
+poly.sa.entiako$name_sa <- "Entiako"
+poly.sa.entiako$id <- 5
+poly.sa.entiako$area_ha <- poly.sa.entiako$area
+poly.sa.entiako$area <- NULL
+
+# all together now...
+poly.sa <- rbind (poly.sa.bc, poly.sa.jprf, poly.sa.pgs, poly.sa.bon, poly.sa.entiako)
+rm (poly.sa.bc, poly.sa.jprf, poly.sa.pgs, poly.sa.bon, poly.sa.entiako)
+gc ()
+
+# unique identifier for each
+poly.sa$unique_id <- with (poly.sa, paste0 (as.character (name_sa), as.character (year)))
+
+# save it 
+st_write (poly.sa, 
+          dsn = here ("./data/mcp/"), 
+          layer = "study_area_mcp_moose", 
+          driver = "ESRI Shapefile")
 ```
 
+### Measuring Spatial Habtiat in Areas
 
 
 - 'disturabnce' = area cut 1-8 years old + area beetle 1-8 yeas old
 
 - last year of survival year is year of distiurbance data, e.g., 2014/15 survival yar = 2015 disturabnce year 
+
+#### Cutblocks
+I estimated the area of cutblocks in each management area using the BC governments [consolidated cutblock data ](https://catalogue.data.gov.bc.ca/dataset/harvested-areas-of-bc-consolidated-cutblocks-). I calculated the amount of area cut each year from 1960 to 2018, and the area cut between 1950 to 1959 and prior to 1950. 
+
+```{r, cutblock data download and attribute to study areas, echo = T, message = F, warning = F}
+library (lwgeom)
+library (dplyr)
+# library (bcdata) # use this to conenct to bcgw via R
+# cutblocks <- bcdc_get_data ('b1b647a6-f271-42e0-9cd0-89ec24bce9f7', resource = '66656966-8af6-4e32-8de1-b79c63cae40f') # name of the data in BCGW; I noticed there are 413451 rows form here, whereas 446,987 in the BCGW; not sure why they are different, but this version likely underestimates the area of cutblocks; so I used the BCGW data and imported it here...
+cutblocks <- sf::st_read (dsn = "C:\\Work\\caribou\\clus_data\\moose\\moose_lch.gdb",
+                          layer = "cutblocks_20191217")
+cutblocks <- lwgeom::st_make_valid (cutblocks) # fix any geometry errors
+
+# intersect cutblocks with study area values
+sa.cutblocks <- sf::st_intersection (cutblocks, poly.sa ["unique_id"]) # intersect the study area ID
+table.sa.cutblocks <- as.data.table (sa.cutblocks)
+
+# summarize cut by study area
+table.sa.cutblocks.mum <- table.sa.cutblocks %>% 
+                             group_by (unique_id, HARVEST_YEAR) %>%
+                             summarise (area_ha = sum (AREA_HA)) # calculate area of cut by year
+
+# get study area id
+poly.sa.habitat <- as.data.table (poly.sa)
+poly.sa.habitat$geometry <- NULL
+
+## these next steps left-join the cutblock data to wmu data ##
+### Subset the harvest years ###
+#### 1980 to 2018 ####
+fxn.cut.year <- function (year, table.sa.cutblocks.mum, poly.sa.habitat) {
+  table <- as.data.table (table.sa.cutblocks.mum [table.sa.cutblocks.mum$HARVEST_YEAR == year, ])
+  table [, paste0 ("cut_", year, "_area_ha") := area_ha] 
+  table$area_ha <- NULL
+  table$HARVEST_YEAR <- NULL
+  setkey (table, unique_id)
+  setkey (poly.sa.habitat, unique_id)
+  poly.sa.habitat <- merge (poly.sa.habitat, table, all.x = TRUE)
+  poly.sa.habitat [is.na (poly.sa.habitat)] <- 0 # if NA values
+  poly.sa.habitat <<- poly.sa.habitat
+}
+
+year <- 2018
+fxn.cut.year (year, table.sa.cutblocks.mum, poly.sa.habitat)
+  
+#### 1970 to 1979 ####
+table.sa.cutblocks.1970to1979.mum <- table.sa.cutblocks.mum [table.sa.cutblocks.mum$HARVEST_YEAR > 1969 & table.sa.cutblocks.mum$HARVEST_YEAR < 1980, ]
+table.sa.cutblocks.1970to1979.mum <- table.sa.cutblocks.1970to1979.mum %>% 
+                                          group_by (unique_id) %>%
+                                          summarise (area_ha = sum (area_ha))
+table.sa.cutblocks.1970to1979.mum$cut_1970to1979_area_ha <- table.sa.cutblocks.1970to1979.mum$area_ha
+table.sa.cutblocks.1970to1979.mum$area_ha <- NULL
+table.sa.cutblocks.1970to1979.mum <- as.data.table(table.sa.cutblocks.1970to1979.mum)
+setkey (table.sa.cutblocks.1970to1979.mum, unique_id)
+setkey (poly.sa.habitat, unique_id)
+poly.sa.habitat <- merge (poly.sa.habitat, table.sa.cutblocks.1970to1979.mum, all.x = TRUE)
+poly.sa.habitat [is.na (poly.sa.habitat)] <- 0 # if NA values
+rm (table.sa.cutblocks.1970to1979.mum)
+gc ()
+
+# save the data
+write.csv (poly.sa.habitat, here ("./data/study_area_habitat.csv"))
+
+rm (cutblocks, table.sa.cutblocks, table.sa.cutblocks.mum, sa.cutblocks)
+gc ()
+```
+
+#### Beetle Disturbances
+I measured insect disturbance in management areas using data collected by the government of British Columbia using aerial survey  [methods](https://www2.gov.bc.ca/gov/content/industry/forestry/managing-our-forest-resources/forest-health/aerial-overview-surveys/methods). Data are accessible through an [FTP site](https://www.for.gov.bc.ca/ftp/HFP/external/!publish/Aerial_Overview/), and I downloaded annual datsets from 1999 to 2017.  
+
+I summarized the area of moderate (11 to 29%), severe (30 to 49%) and very severe (>50%) levels of disturbance from bettle's including: mountain pine beetle, spruce beetle, Dougals fir beetle, western balsam bark beetle and western pine beetle in each WMU. 
+
+```{r, forest health data download and attribute beetle disturbance to study areas, echo = T, message = F, warning = F}
+library (downloader)
+library (sf)
+library (data.table)
+library (dplyr)
+
+# Download data; this is an example; do these for each year and save it locally
+download ("https://www.for.gov.bc.ca/ftp/HFP/external/!publish/Aerial_Overview/1999/shape/Prov_Shape.zip", 
+            dest = "C:\\Work\\caribou\\clus_data\\forest_health\\1999\\shape.zip", 
+            mode = "wb")
+unzip ("C:\\Work\\caribou\\clus_data\\forest_health\\1999\\shape.zip", 
+       exdir = "C:\\Work\\caribou\\clus_data\\forest_health\\1999")
+file.remove ("C:\\Work\\caribou\\clus_data\\forest_health\\1999\\shape.zip")
+
+#################
+# 1999 to 2018 #
+###############
+
+# function to add mpb
+fxn.mpb.severity <- function (mpb, year, severity, poly.sa.habitat, poly.sa) {
+  poly <- sf::st_intersection (mpb, poly.sa ["unique_id"])
+  table <- as.data.table (poly)  
+  table.sum <- as.data.table (table [, sum (POLY_AREA), by = unique_id])
+  setnames (table.sum, c("unique_id", "V1"), c("unique_id", paste0 ("mpb_", year, severity, "_area_ha")))
+  setkey (table.sum, unique_id)
+  setkey (poly.sa.habitat, unique_id)
+  poly.sa.habitat <- merge (poly.sa.habitat, table.sum, all.x = TRUE)
+  poly.sa.habitat [is.na (poly.sa.habitat)] <- 0
+  poly.sa.habitat <<- poly.sa.habitat
+}
+
+fh.2018 <- sf::st_read (dsn = "C:\\Work\\caribou\\clus_data\\forest_health\\2018\\AOS_2018_Poly_Jan21.shp")
+mpb.2018 <- dplyr::filter (fh.2018, FHF == "IBM")  # mountain pine beetle type
+st_crs (mpb.2018) = 3005
+mpb.2018.vs <- dplyr::filter (mpb.2018, SEVERITY == "V") # severity types: very severe (>50% of Trees in Polygon Recently Killed)
+mpb.2018.s <- dplyr::filter (mpb.2018, SEVERITY == "S") # severe (30% to 49%)
+mpb.2018.m <- dplyr::filter (mpb.2018, SEVERITY == "M") # moderate (11% to 29%)
+
+# fxn parameters
+year <- 2018
+severity <- "versev" # "mod", "sev", "versev"
+mpb <- mpb.2018.vs
+
+fxn.mpb.severity (mpb, year, severity, poly.sa.habitat, poly.sa)
+
+
+rm (mpb.2018.vs, mpb.2018.s, mpb.2018.m, sa.mpb.2018.m, sa.mpb.2018.s, sa.mpb.2018.vs, table.sa.mpb.2018.m, table.sa.mpb.2018.m.sum, table.sa.mpb.2018.s, table.sa.mpb.2018.s.sum, table.sa.mpb.2018.vs, table.sa.mpb.2018.vs.sum, fh.2018, mpb.2018)
+gc ()
+
+# save the data
+write.csv (poly.sa.habitat, here ("./data/study_area_habitat.csv"))
+
+```
+
+
+
+### Population Parameters
+
+
+
+
+### Model
+
+- cumualtive sums of disturbances, 8 year, 15, 25 year?
