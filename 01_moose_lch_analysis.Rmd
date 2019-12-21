@@ -19,7 +19,16 @@ See the License for the specific language governing permissions and limitations 
 -->
 
 ```{r setup, include=FALSE}
+
 knitr::opts_chunk$set(echo = TRUE)
+library (data.table)
+library (downloader)
+library (dplyr)
+library (ggplot2)
+library (here)
+library (lwgeom)
+library (sf)
+
 ```
 
 ## Introduction
@@ -37,9 +46,6 @@ knitr::opts_chunk$set(echo = TRUE)
 - 4 years of data
 
 ```{r, management unit spatial data, echo = T, message = F, warning = F}
-library (sf)
-library (data.table)
-library (here)
 
 # load the mcp's
 poly.sa.bc.14.15 <- st_transform (st_read (dsn = here ( "./data/mcp/PGS_JPRF_BigCreek_MCPs.gdb/PGS_JPRF_BigCreek_MCPs.gdb"),
@@ -182,17 +188,13 @@ st_write (poly.sa,
 
 ### Measuring Spatial Habtiat in Areas
 
-
-- 'disturabnce' = area cut 1-8 years old + area beetle 1-8 yeas old
-
-- last year of survival year is year of distiurbance data, e.g., 2014/15 survival yar = 2015 disturabnce year 
+- testing efefct of two forest distruabnce types: cutblcoks and betteles usign publically available provinvial data
 
 #### Cutblocks
 I estimated the area of cutblocks in each management area using the BC governments [consolidated cutblock data ](https://catalogue.data.gov.bc.ca/dataset/harvested-areas-of-bc-consolidated-cutblocks-). I calculated the amount of area cut each year from 1960 to 2018, and the area cut between 1950 to 1959 and prior to 1950. 
 
 ```{r, cutblock data download and attribute to study areas, echo = T, message = F, warning = F}
-library (lwgeom)
-library (dplyr)
+
 # library (bcdata) # use this to conenct to bcgw via R
 # cutblocks <- bcdc_get_data ('b1b647a6-f271-42e0-9cd0-89ec24bce9f7', resource = '66656966-8af6-4e32-8de1-b79c63cae40f') # name of the data in BCGW; I noticed there are 413451 rows form here, whereas 446,987 in the BCGW; not sure why they are different, but this version likely underestimates the area of cutblocks; so I used the BCGW data and imported it here...
 cutblocks <- sf::st_read (dsn = "C:\\Work\\caribou\\clus_data\\moose\\moose_lch.gdb",
@@ -258,10 +260,7 @@ I measured insect disturbance in management areas using data collected by the go
 I summarized the area of moderate (11 to 29%), severe (30 to 49%) and very severe (>50%) levels of disturbance from bettle's including: mountain pine beetle, spruce beetle, Dougals fir beetle, western balsam bark beetle and western pine beetle in each WMU. 
 
 ```{r, forest health data download and attribute beetle disturbance to study areas, echo = T, message = F, warning = F}
-library (downloader)
-library (sf)
-library (data.table)
-library (dplyr)
+
 
 # Download data; this is an example; do these for each year and save it locally
 download ("https://www.for.gov.bc.ca/ftp/HFP/external/!publish/Aerial_Overview/1999/shape/Prov_Shape.zip", 
@@ -274,6 +273,89 @@ file.remove ("C:\\Work\\caribou\\clus_data\\forest_health\\1999\\shape.zip")
 #################
 # 1999 to 2018 #
 ###############
+fh.1999 <- sf::st_read (dsn = "C:\\Work\\caribou\\clus_data\\forest_health\\1999\\Prov_Shape\\FHF_Poly_1999.shp")
+mpb.1999 <- dplyr::filter (fh.1999, FHF == "IBM" & SEVERITY == "M" | SEVERITY == "S" | SEVERITY == "V")  # mountain pine beetle, severity = moderate, severe or very severe
+st_crs (mpb.1999) = 3005
+mpb.1999.sa <- sf::st_intersection (mpb.1999 [c ("SEVERITY", "YEAR", "POLY_AREA")], poly.sa ["unique_id"])
+rm (fh.1999, mpb.1999)
+gc ()
+
+
+# Make this a fucntion 
+
+
+
+
+
+fh.2000 <- sf::st_read (dsn = "C:\\Work\\caribou\\clus_data\\forest_health\\2000\\shape\\prv_ibm.shp")
+mpb.2000 <- dplyr::filter (fh.2000, SEVERITY == "M" | SEVERITY == "S" | SEVERITY == "V")  # mountain pine beetle, severity = moderate, severe or very severe
+st_crs (mpb.2000) = 3005
+mpb.2000.sa <- sf::st_intersection (mpb.2000, poly.sa ["unique_id"])
+rm (fh.2000, mpb.2000)
+gc ()
+
+
+
+
+
+
+
+fh.2001 <- sf::st_read (dsn = "C:\\Work\\caribou\\clus_data\\forest_health\\2001\\prv_poly.shp")
+fh.2001 <- lwgeom::st_make_valid (fh.2001)
+mpb.2001 <- dplyr::filter (fh.2001, FHF == "IBM" & SEVERITY == "M" | SEVERITY == "S" | SEVERITY == "V")  # mountain pine beetle, severity = moderate, severe or very severe
+st_crs (mpb.2001) = 3005
+mpb.2001.sa <- sf::st_intersection (mpb.2001, poly.sa ["unique_id"])
+rm (fh.2001, mpb.2001)
+gc ()
+
+fh.2002 <- sf::st_read (dsn = "C:\\Work\\caribou\\clus_data\\forest_health\\2002\\prv_poly.shp")
+mpb.2002 <- dplyr::filter (fh.2002, FHF == "IBM" & SEVERITY == "M" | SEVERITY == "S" | SEVERITY == "V")  # mountain pine beetle, severity = moderate, severe or very severe
+st_crs (mpb.2002) = 3005
+mpb.2002.sa <- sf::st_intersection (mpb.2002, poly.sa ["unique_id"])
+rm (fh.2002, mpb.2002)
+gc ()
+
+fh.2003 <- sf::st_read (dsn = "C:\\Work\\caribou\\clus_data\\forest_health\\2003\\SHAPE_FILES\\fhf_poly_2003.shp")
+mpb.2003 <- dplyr::filter (fh.2003, FHF == "IBM" & SEVERITY == "M" | SEVERITY == "S" | SEVERITY == "V")  # mountain pine beetle, severity = moderate, severe or very severe
+st_crs (mpb.2003) = 3005
+mpb.2003.sa <- sf::st_intersection (mpb.2003, poly.sa ["unique_id"])
+rm (fh.2003, mpb.2003)
+gc ()
+
+fh.2004 <- sf::st_read (dsn = "C:\\Work\\caribou\\clus_data\\forest_health\\2004\\fhf_poly_2004.shp")
+mpb.2004 <- dplyr::filter (fh.2004, FHF == "IBM" & SEVERITY == "M" | SEVERITY == "S" | SEVERITY == "V")  # mountain pine beetle, severity = moderate, severe or very severe
+st_crs (mpb.2004) = 3005
+mpb.2004.sa <- sf::st_intersection (mpb.2004, poly.sa ["unique_id"])
+rm (fh.2004, mpb.2004)
+gc ()
+
+fh.2005 <- sf::st_read (dsn = "C:\\Work\\caribou\\clus_data\\forest_health\\2005\\fhf_poly.shp")
+mpb.2005 <- dplyr::filter (fh.2005, FHF == "IBM" & SEVERITY == "M" | SEVERITY == "S" | SEVERITY == "V")  # mountain pine beetle, severity = moderate, severe or very severe
+st_crs (mpb.2005) = 3005
+mpb.2005.sa <- sf::st_intersection (mpb.2005, poly.sa ["unique_id"])
+rm (fh.2005, mpb.2005)
+gc ()
+
+
+
+
+# erase polygons previous years 1999 that were re-classified (overlap) in subsequent years
+mpb_erase <- st_difference (st_make_valid (mpb.1999.sa), st_make_valid (st_union (st_combine (mpb.2000.sa))))
+
+
+# merge them back together 
+mpb_cumulative <- rbind (mpb.2000.sa, mpb_erase)?
+
+# save it 
+st_write (mpb_cumulative, 
+          dsn = "C:\\Work\\caribou\\clus_data\\forest_health\\mpb_cumulative", 
+          layer = "mpb_cumul_1999", 
+          driver = "ESRI Shapefile")
+
+
+
+
+
 
 # function to add mpb
 fxn.mpb.severity <- function (mpb, year, severity, poly.sa.habitat, poly.sa) {
@@ -311,13 +393,203 @@ write.csv (poly.sa.habitat, here ("./data/study_area_habitat.csv"))
 
 ```
 
+### CUmulative Disturbance
 
+- 'disturabnce' = area cut 1-8 years old + area beetle 1-8 yeas old (and 15 years, 25 years prior to each 'survival' year)
+
+- last year of survival year is year of distiurbance data, e.g., 2014/15 survival year = 2015 disturabnce year 
+
+- for mpb, surveys done in July-Aug, so use year before to assign mpb imapct to study area, e.g., if study area year = 2018, use 2017 mpb disturbnace 
+
+
+```{r, cumulative sum disturbance, echo = T, message = F, warning = F}
+
+# 8 year cumulative cut disturbance 
+poly.sa.habitat [year == 2014, cut_8_year_area_ha := cut_2014_area_ha + cut_2013_area_ha + cut_2012_area_ha + cut_2011_area_ha + cut_2010_area_ha + cut_2009_area_ha + cut_2008_area_ha + cut_2007_area_ha]
+poly.sa.habitat [year == 2015, cut_8_year_area_ha := cut_2015_area_ha + cut_2014_area_ha + cut_2013_area_ha + cut_2012_area_ha + cut_2011_area_ha + cut_2010_area_ha + cut_2009_area_ha + cut_2008_area_ha] #where year = 2015
+poly.sa.habitat [year == 2016, cut_8_year_area_ha := cut_2016_area_ha + cut_2015_area_ha + cut_2014_area_ha + cut_2013_area_ha + cut_2012_area_ha + cut_2011_area_ha + cut_2010_area_ha + cut_2009_area_ha] #where year = 2016
+poly.sa.habitat [year == 2017, cut_8_year_area_ha := cut_2017_area_ha + cut_2016_area_ha + cut_2015_area_ha + cut_2014_area_ha + cut_2013_area_ha + cut_2012_area_ha + cut_2011_area_ha + cut_2010_area_ha] 
+poly.sa.habitat [year == 2018, cut_8_year_area_ha := cut_2018_area_ha + cut_2017_area_ha + cut_2016_area_ha + cut_2015_area_ha + cut_2014_area_ha + cut_2013_area_ha + cut_2012_area_ha + cut_2011_area_ha] 
+
+# Cumulative mpb  
+### NOTE: for MPB, each year survey is cumulative, impact of previous years are included in last year, so use last year value and extends form 1999 to present
+
+
+
+
+poly.sa.habitat [year == 2014, mpb_vs_8_year_area_ha := mpb_2014versev_area_ha + mpb_2013versev_area_ha + mpb_2012versev_area_ha + mpb_2011versev_area_ha + mpb_2010versev_area_ha + mpb_2009versev_area_ha + mpb_2008versev_area_ha + mpb_2007versev_area_ha]
+poly.sa.habitat [year == 2015, mpb_vs_8_year_area_ha := mpb_2015versev_area_ha + mpb_2014versev_area_ha + mpb_2013versev_area_ha + mpb_2012versev_area_ha + mpb_2011versev_area_ha + mpb_2010versev_area_ha + mpb_2009versev_area_ha + mpb_2008versev_area_ha]
+poly.sa.habitat [year == 2016, mpb_vs_8_year_area_ha := mpb_2016versev_area_ha + mpb_2015versev_area_ha + mpb_2014versev_area_ha + mpb_2013versev_area_ha + mpb_2012versev_area_ha + mpb_2011versev_area_ha + mpb_2010versev_area_ha + mpb_2009versev_area_ha]
+poly.sa.habitat [year == 2017, mpb_vs_8_year_area_ha := mpb_2017versev_area_ha + mpb_2016versev_area_ha + mpb_2015versev_area_ha + mpb_2014versev_area_ha + mpb_2013versev_area_ha + mpb_2012versev_area_ha + mpb_2011versev_area_ha + mpb_2010versev_area_ha]
+poly.sa.habitat [year == 2018, mpb_vs_8_year_area_ha := mpb_2018versev_area_ha + mpb_2017versev_area_ha + mpb_2016versev_area_ha + mpb_2015versev_area_ha + mpb_2014versev_area_ha + mpb_2013versev_area_ha + mpb_2012versev_area_ha + mpb_2011versev_area_ha]
+
+# 8 year cumulative mpb severe disturbance 
+poly.sa.habitat [year == 2014, mpb_s_8_year_area_ha := mpb_2014sev_area_ha + mpb_2013sev_area_ha + mpb_2012sev_area_ha + mpb_2011sev_area_ha + mpb_2010sev_area_ha + mpb_2009sev_area_ha + mpb_2008sev_area_ha + mpb_2007sev_area_ha]
+poly.sa.habitat [year == 2015, mpb_s_8_year_area_ha := mpb_2015sev_area_ha + mpb_2014sev_area_ha + mpb_2013sev_area_ha + mpb_2012sev_area_ha + mpb_2011sev_area_ha + mpb_2010sev_area_ha + mpb_2009sev_area_ha + mpb_2008sev_area_ha]
+poly.sa.habitat [year == 2016, mpb_s_8_year_area_ha := mpb_2016sev_area_ha + mpb_2015sev_area_ha + mpb_2014sev_area_ha + mpb_2013sev_area_ha + mpb_2012sev_area_ha + mpb_2011sev_area_ha + mpb_2010sev_area_ha + mpb_2009sev_area_ha]
+poly.sa.habitat [year == 2017, mpb_s_8_year_area_ha := mpb_2017sev_area_ha + mpb_2016sev_area_ha + mpb_2015sev_area_ha + mpb_2014sev_area_ha + mpb_2013sev_area_ha + mpb_2012sev_area_ha + mpb_2011sev_area_ha + mpb_2010sev_area_ha]
+poly.sa.habitat [year == 2018, mpb_s_8_year_area_ha := mpb_2018sev_area_ha + mpb_2017sev_area_ha + mpb_2016sev_area_ha + mpb_2015sev_area_ha + mpb_2014sev_area_ha + mpb_2013sev_area_ha + mpb_2012sev_area_ha + mpb_2011sev_area_ha]
+
+# 8 year cumulative mpb moderate disturbance 
+poly.sa.habitat [year == 2014, mpb_m_8_year_area_ha := mpb_2014mod_area_ha + mpb_2013mod_area_ha + mpb_2012mod_area_ha + mpb_2011mod_area_ha + mpb_2010mod_area_ha + mpb_2009mod_area_ha + mpb_2008mod_area_ha + mpb_2007mod_area_ha]
+poly.sa.habitat [year == 2015, mpb_m_8_year_area_ha := mpb_2015mod_area_ha + mpb_2014mod_area_ha + mpb_2013mod_area_ha + mpb_2012mod_area_ha + mpb_2011mod_area_ha + mpb_2010mod_area_ha + mpb_2009mod_area_ha + mpb_2008mod_area_ha]
+poly.sa.habitat [year == 2016, mpb_m_8_year_area_ha := mpb_2016mod_area_ha + mpb_2015mod_area_ha + mpb_2014mod_area_ha + mpb_2013mod_area_ha + mpb_2012mod_area_ha + mpb_2011mod_area_ha + mpb_2010mod_area_ha + mpb_2009mod_area_ha]
+poly.sa.habitat [year == 2017, mpb_m_8_year_area_ha := mpb_2017mod_area_ha + mpb_2016mod_area_ha + mpb_2015mod_area_ha + mpb_2014mod_area_ha + mpb_2013mod_area_ha + mpb_2012mod_area_ha + mpb_2011mod_area_ha + mpb_2010mod_area_ha]
+poly.sa.habitat [year == 2018, mpb_m_8_year_area_ha := mpb_2018mod_area_ha + mpb_2017mod_area_ha + mpb_2016mod_area_ha + mpb_2015mod_area_ha + mpb_2014mod_area_ha + mpb_2013mod_area_ha + mpb_2012mod_area_ha + mpb_2011mod_area_ha]
+
+# cumulative mod, severe and very severe
+poly.sa.habitat [, mpb_all_8_year_area_ha := mpb_m_8_year_area_ha + mpb_s_8_year_area_ha + mpb_vs_8_year_area_ha]
+
+# 15 year cumulative cut disturbance 
+poly.sa.habitat [year == 2014, cut_15_year_area_ha := cut_2014_area_ha + cut_2013_area_ha + cut_2012_area_ha + cut_2011_area_ha + cut_2010_area_ha + cut_2009_area_ha + cut_2008_area_ha + cut_2007_area_ha + cut_2006_area_ha + cut_2005_area_ha + cut_2004_area_ha + cut_2003_area_ha + cut_2002_area_ha + cut_2001_area_ha + cut_2000_area_ha]
+poly.sa.habitat [year == 2015, cut_15_year_area_ha := cut_2015_area_ha + cut_2014_area_ha + cut_2013_area_ha + cut_2012_area_ha + cut_2011_area_ha + cut_2010_area_ha + cut_2009_area_ha + cut_2008_area_ha + cut_2007_area_ha + cut_2006_area_ha + cut_2005_area_ha + cut_2004_area_ha + cut_2003_area_ha + cut_2002_area_ha + cut_2001_area_ha] 
+poly.sa.habitat [year == 2016, cut_15_year_area_ha := cut_2016_area_ha + cut_2015_area_ha + cut_2014_area_ha + cut_2013_area_ha + cut_2012_area_ha + cut_2011_area_ha + cut_2010_area_ha + cut_2009_area_ha + cut_2008_area_ha + cut_2007_area_ha + cut_2006_area_ha + cut_2005_area_ha + cut_2004_area_ha + cut_2003_area_ha + cut_2002_area_ha] 
+poly.sa.habitat [year == 2017, cut_15_year_area_ha := cut_2017_area_ha + cut_2016_area_ha + cut_2015_area_ha + cut_2014_area_ha + cut_2013_area_ha + cut_2012_area_ha + cut_2011_area_ha + cut_2010_area_ha + cut_2009_area_ha + cut_2008_area_ha + cut_2007_area_ha + cut_2006_area_ha + cut_2005_area_ha + cut_2004_area_ha + cut_2003_area_ha] 
+poly.sa.habitat [year == 2018, cut_15_year_area_ha := cut_2018_area_ha + cut_2017_area_ha + cut_2016_area_ha + cut_2015_area_ha + cut_2014_area_ha + cut_2013_area_ha + cut_2012_area_ha + cut_2011_area_ha + cut_2010_area_ha + cut_2009_area_ha + cut_2008_area_ha + cut_2007_area_ha + cut_2006_area_ha + cut_2005_area_ha + cut_2004_area_ha] 
+
+# 15 year cumulative mpb very severe disturbance 
+poly.sa.habitat [year == 2014, mpb_vs_15_year_area_ha := mpb_2014versev_area_ha + mpb_2013versev_area_ha + mpb_2012versev_area_ha + mpb_2011versev_area_ha + mpb_2010versev_area_ha + mpb_2009versev_area_ha + mpb_2008versev_area_ha + mpb_2007versev_area_ha + mpb_2006versev_area_ha + mpb_2005versev_area_ha + mpb_2004versev_area_ha + mpb_2003versev_area_ha + mpb_2002versev_area_ha + mpb_2001versev_area_ha + mpb_2000versev_area_ha]
+poly.sa.habitat [year == 2015, mpb_vs_15_year_area_ha := mpb_2015versev_area_ha + mpb_2014versev_area_ha + mpb_2013versev_area_ha + mpb_2012versev_area_ha + mpb_2011versev_area_ha + mpb_2010versev_area_ha + mpb_2009versev_area_ha + mpb_2008versev_area_ha + mpb_2007versev_area_ha + mpb_2006versev_area_ha + mpb_2005versev_area_ha + mpb_2004versev_area_ha + mpb_2003versev_area_ha + mpb_2002versev_area_ha + mpb_2001versev_area_ha]
+poly.sa.habitat [year == 2016, mpb_vs_15_year_area_ha := mpb_2016versev_area_ha + mpb_2015versev_area_ha + mpb_2014versev_area_ha + mpb_2013versev_area_ha + mpb_2012versev_area_ha + mpb_2011versev_area_ha + mpb_2010versev_area_ha + mpb_2009versev_area_ha + mpb_2008versev_area_ha + mpb_2007versev_area_ha + mpb_2006versev_area_ha + mpb_2005versev_area_ha + mpb_2004versev_area_ha + mpb_2003versev_area_ha + mpb_2002versev_area_ha]
+poly.sa.habitat [year == 2017, mpb_vs_15_year_area_ha := mpb_2017versev_area_ha + mpb_2016versev_area_ha + mpb_2015versev_area_ha + mpb_2014versev_area_ha + mpb_2013versev_area_ha + mpb_2012versev_area_ha + mpb_2011versev_area_ha + mpb_2010versev_area_ha + mpb_2009versev_area_ha + mpb_2008versev_area_ha + mpb_2007versev_area_ha + mpb_2006versev_area_ha + mpb_2005versev_area_ha + mpb_2004versev_area_ha + mpb_2003versev_area_ha]
+poly.sa.habitat [year == 2018, mpb_vs_15_year_area_ha := mpb_2018versev_area_ha + mpb_2017versev_area_ha + mpb_2016versev_area_ha + mpb_2015versev_area_ha + mpb_2014versev_area_ha + mpb_2013versev_area_ha + mpb_2012versev_area_ha + mpb_2011versev_area_ha + mpb_2010versev_area_ha + mpb_2009versev_area_ha + mpb_2008versev_area_ha + mpb_2007versev_area_ha + mpb_2006versev_area_ha + mpb_2005versev_area_ha + mpb_2004versev_area_ha]
+
+# 15 year cumulative mpb severe disturbance 
+poly.sa.habitat [year == 2014, mpb_s_15_year_area_ha := mpb_2014sev_area_ha + mpb_2013sev_area_ha + mpb_2012sev_area_ha + mpb_2011sev_area_ha + mpb_2010sev_area_ha + mpb_2009sev_area_ha + mpb_2008sev_area_ha + mpb_2007sev_area_ha + mpb_2006sev_area_ha + mpb_2005sev_area_ha + mpb_2004sev_area_ha + mpb_2003sev_area_ha + mpb_2002sev_area_ha + mpb_2001sev_area_ha + mpb_2000sev_area_ha]
+poly.sa.habitat [year == 2015, mpb_s_15_year_area_ha := mpb_2015sev_area_ha + mpb_2014sev_area_ha + mpb_2013sev_area_ha + mpb_2012sev_area_ha + mpb_2011sev_area_ha + mpb_2010sev_area_ha + mpb_2009sev_area_ha + mpb_2008sev_area_ha + mpb_2007sev_area_ha + mpb_2006sev_area_ha + mpb_2005sev_area_ha + mpb_2004sev_area_ha + mpb_2003sev_area_ha + mpb_2002sev_area_ha + mpb_2001sev_area_ha]
+poly.sa.habitat [year == 2016, mpb_s_15_year_area_ha := mpb_2016sev_area_ha + mpb_2015sev_area_ha + mpb_2014sev_area_ha + mpb_2013sev_area_ha + mpb_2012sev_area_ha + mpb_2011sev_area_ha + mpb_2010sev_area_ha + mpb_2009sev_area_ha + mpb_2008sev_area_ha + mpb_2007sev_area_ha + mpb_2006sev_area_ha + mpb_2005sev_area_ha + mpb_2004sev_area_ha + mpb_2003sev_area_ha + mpb_2002sev_area_ha]
+poly.sa.habitat [year == 2017, mpb_s_15_year_area_ha := mpb_2017sev_area_ha + mpb_2016sev_area_ha + mpb_2015sev_area_ha + mpb_2014sev_area_ha + mpb_2013sev_area_ha + mpb_2012sev_area_ha + mpb_2011sev_area_ha + mpb_2010sev_area_ha + mpb_2009sev_area_ha + mpb_2008sev_area_ha + mpb_2007sev_area_ha + mpb_2006sev_area_ha + mpb_2005sev_area_ha + mpb_2004sev_area_ha + mpb_2003sev_area_ha]
+poly.sa.habitat [year == 2018, mpb_s_15_year_area_ha := mpb_2018sev_area_ha + mpb_2017sev_area_ha + mpb_2016sev_area_ha + mpb_2015sev_area_ha + mpb_2014sev_area_ha + mpb_2013sev_area_ha + mpb_2012sev_area_ha + mpb_2011sev_area_ha + mpb_2010sev_area_ha + mpb_2009sev_area_ha + mpb_2008sev_area_ha + mpb_2007sev_area_ha + mpb_2006sev_area_ha + mpb_2005sev_area_ha + mpb_2004sev_area_ha]
+
+# 15 year cumulative mpb moderate disturbance 
+poly.sa.habitat [year == 2014, mpb_m_15_year_area_ha := mpb_2014mod_area_ha + mpb_2013mod_area_ha + mpb_2012mod_area_ha + mpb_2011mod_area_ha + mpb_2010mod_area_ha + mpb_2009mod_area_ha + mpb_2008mod_area_ha + mpb_2007mod_area_ha + mpb_2006mod_area_ha + mpb_2005mod_area_ha + mpb_2004mod_area_ha + mpb_2003mod_area_ha + mpb_2002mod_area_ha + mpb_2001mod_area_ha + mpb_2000mod_area_ha]
+poly.sa.habitat [year == 2015, mpb_m_15_year_area_ha := mpb_2015mod_area_ha + mpb_2014mod_area_ha + mpb_2013mod_area_ha + mpb_2012mod_area_ha + mpb_2011mod_area_ha + mpb_2010mod_area_ha + mpb_2009mod_area_ha + mpb_2008mod_area_ha + mpb_2007mod_area_ha + mpb_2006mod_area_ha + mpb_2005mod_area_ha + mpb_2004mod_area_ha + mpb_2003mod_area_ha + mpb_2002mod_area_ha + mpb_2001mod_area_ha]
+poly.sa.habitat [year == 2016, mpb_m_15_year_area_ha := mpb_2016mod_area_ha + mpb_2015mod_area_ha + mpb_2014mod_area_ha + mpb_2013mod_area_ha + mpb_2012mod_area_ha + mpb_2011mod_area_ha + mpb_2010mod_area_ha + mpb_2009mod_area_ha + mpb_2008mod_area_ha + mpb_2007mod_area_ha + mpb_2006mod_area_ha + mpb_2005mod_area_ha + mpb_2004mod_area_ha + mpb_2003mod_area_ha + mpb_2002mod_area_ha]
+poly.sa.habitat [year == 2017, mpb_m_15_year_area_ha := mpb_2017mod_area_ha + mpb_2016mod_area_ha + mpb_2015mod_area_ha + mpb_2014mod_area_ha + mpb_2013mod_area_ha + mpb_2012mod_area_ha + mpb_2011mod_area_ha + mpb_2010mod_area_ha + mpb_2009mod_area_ha + mpb_2008mod_area_ha + mpb_2007mod_area_ha + mpb_2006mod_area_ha + mpb_2005mod_area_ha + mpb_2004mod_area_ha + mpb_2003mod_area_ha]
+poly.sa.habitat [year == 2018, mpb_m_15_year_area_ha := mpb_2018mod_area_ha + mpb_2017mod_area_ha + mpb_2016mod_area_ha + mpb_2015mod_area_ha + mpb_2014mod_area_ha + mpb_2013mod_area_ha + mpb_2012mod_area_ha + mpb_2011mod_area_ha + mpb_2010mod_area_ha + mpb_2009mod_area_ha + mpb_2008mod_area_ha + mpb_2007mod_area_ha + mpb_2006mod_area_ha + mpb_2005mod_area_ha + mpb_2004mod_area_ha]
+
+# 15 year cumulative mod, severe and very severe
+poly.sa.habitat [, mpb_all_15_year_area_ha := mpb_m_15_year_area_ha + mpb_s_15_year_area_ha + mpb_vs_15_year_area_ha]
+
+# 15 year cumulative cut disturbance 
+poly.sa.habitat [year == 2014, cut_25_year_area_ha := cut_2014_area_ha + cut_2013_area_ha + cut_2012_area_ha + cut_2011_area_ha + cut_2010_area_ha + cut_2009_area_ha + cut_2008_area_ha + cut_2007_area_ha + cut_2006_area_ha + cut_2005_area_ha + cut_2004_area_ha + cut_2003_area_ha + cut_2002_area_ha + cut_2001_area_ha + cut_2000_area_ha + cut_1999_area_ha + cut_1998_area_ha + cut_1997_area_ha + cut_1996_area_ha + cut_1995_area_ha + cut_1994_area_ha + cut_1993_area_ha + cut_1992_area_ha + cut_1991_area_ha + cut_1990_area_ha]
+poly.sa.habitat [year == 2015, cut_25_year_area_ha := cut_2015_area_ha + cut_2014_area_ha + cut_2013_area_ha + cut_2012_area_ha + cut_2011_area_ha + cut_2010_area_ha + cut_2009_area_ha + cut_2008_area_ha + cut_2007_area_ha + cut_2006_area_ha + cut_2005_area_ha + cut_2004_area_ha + cut_2003_area_ha + cut_2002_area_ha + cut_2001_area_ha + cut_2000_area_ha + cut_1999_area_ha + cut_1998_area_ha + cut_1997_area_ha + cut_1996_area_ha + cut_1995_area_ha + cut_1994_area_ha + cut_1993_area_ha + cut_1992_area_ha + cut_1991_area_ha] 
+poly.sa.habitat [year == 2016, cut_25_year_area_ha := cut_2016_area_ha + cut_2015_area_ha + cut_2014_area_ha + cut_2013_area_ha + cut_2012_area_ha + cut_2011_area_ha + cut_2010_area_ha + cut_2009_area_ha + cut_2008_area_ha + cut_2007_area_ha + cut_2006_area_ha + cut_2005_area_ha + cut_2004_area_ha + cut_2003_area_ha + cut_2002_area_ha + cut_2001_area_ha + cut_2000_area_ha + cut_1999_area_ha + cut_1998_area_ha + cut_1997_area_ha + cut_1996_area_ha + cut_1995_area_ha + cut_1994_area_ha + cut_1993_area_ha + cut_1992_area_ha] 
+poly.sa.habitat [year == 2017, cut_25_year_area_ha := cut_2017_area_ha + cut_2016_area_ha + cut_2015_area_ha + cut_2014_area_ha + cut_2013_area_ha + cut_2012_area_ha + cut_2011_area_ha + cut_2010_area_ha + cut_2009_area_ha + cut_2008_area_ha + cut_2007_area_ha + cut_2006_area_ha + cut_2005_area_ha + cut_2004_area_ha + cut_2003_area_ha + cut_2002_area_ha + cut_2001_area_ha + cut_2000_area_ha + cut_1999_area_ha + cut_1998_area_ha + cut_1997_area_ha + cut_1996_area_ha + cut_1995_area_ha + cut_1994_area_ha + cut_1993_area_ha] 
+poly.sa.habitat [year == 2018, cut_25_year_area_ha := cut_2018_area_ha + cut_2017_area_ha + cut_2016_area_ha + cut_2015_area_ha + cut_2014_area_ha + cut_2013_area_ha + cut_2012_area_ha + cut_2011_area_ha + cut_2010_area_ha + cut_2009_area_ha + cut_2008_area_ha + cut_2007_area_ha + cut_2006_area_ha + cut_2005_area_ha + cut_2004_area_ha + cut_2003_area_ha + cut_2002_area_ha + cut_2001_area_ha + cut_2000_area_ha + cut_1999_area_ha + cut_1998_area_ha + cut_1997_area_ha + cut_1996_area_ha + cut_1995_area_ha + cut_1994_area_ha] 
+
+write.csv (poly.sa.habitat, here ("./data/study_area_habitat.csv"))
+
+poly.sa.habitat.sum <- poly.sa.habitat [, .(unique_id, id, year, name_sa, area_ha, cut_8_year_area_ha, cut_15_year_area_ha, cut_25_year_area_ha, mpb_all_8_year_area_ha, mpb_all_15_year_area_ha, mpb_m_8_year_area_ha, mpb_s_8_year_area_ha, mpb_vs_8_year_area_ha, mpb_m_15_year_area_ha, mpb_s_15_year_area_ha, mpb_vs_15_year_area_ha)]
+
+write.csv (poly.sa.habitat.sum, here ("./data/study_area_habitat_sum.csv"))
+
+```
 
 ### Population Parameters
+- dependent variables are:
+    - annual survival rate, human and all mortality types?
+    - change in annual survival rate, human and all mortality types?
+    - change in density 
 
+```{r population params table, echo = T, message = F, warning = F}
+
+table.pop.data = data.table(
+  unique_id = c ("Big Creek2015", "Big Creek2016", "Big Creek2017", "Big Creek2018", "Bonaparte2015",
+                 "Bonaparte2016", "Bonaparte2017", "Bonaparte2018", "Entiako2014", "Entiako2015", 
+                 "Entiako2016", "Entiako2017", "Entiako2018", "John Prince Research Forest2015",
+                 "John Prince Research Forest2016", "John Prince Research Forest2017",
+                 "John Prince Research Forest2018", "Prince George South2015", 
+                 "Prince George South2016", "Prince George South2017", "Prince George South2018"),
+  af_survival_rate_all = c (0.923, 0.862, 0.897, 0.901, 0.912, 0.871, 0.906, 0.977, 0.970, 0.913,
+                            0.799, 0.775, 0.817, 1, 0.923, 0.949, 0.951, 0.875, 0.842, 0.946, 0.794),
+  af_survival_rate_all_95CI = c (0.085, 0.103, 0.143, 0.092, 0.130, 0.092, 0.124, 0.045, NA, 0.081, 
+                                 0.111, 0.168, 0.133, 0, 0.084, 0.110, 0.066, 0.162, 0.118, 0.151, 
+                                 0.122),
+  calves_100cows = c(37, 33, 27, 32, 25, 26, 16, 38, NA, NA, 14, 9, 15, 8, 17, 40, 37, 39, 27, 40,
+                     26),
+  density = c(170, NA, NA, 220, 296, NA, NA, 254, NA, 267, NA, NA, 217, 770, NA, NA, 490, 630, NA, 
+              NA, 400),
+  density_95CI = c(39, NA, NA, 38, 18, NA, NA, 41, NA, 45, NA, NA, 46, 93, NA, NA, 84, 102, NA, NA, 
+                   78)
+)
+
+# link pop table to habitat table
+setkey (table.pop.data, unique_id)
+setkey (poly.sa.habitat.sum, unique_id)
+data <- merge (table.pop.data, poly.sa.habitat.sum, all.x = TRUE)
+
+# convert areas to proportion of study area
+data [, prop_cut_8_year_area_ha := cut_8_year_area_ha / area_ha]
+data [, prop_cut_15_year_area_ha := cut_15_year_area_ha / area_ha]
+data [, prop_cut_25_year_area_ha := cut_25_year_area_ha / area_ha]
+data [, prop_mpb_m_8_year_area_ha := mpb_m_8_year_area_ha / area_ha]
+data [, prop_mpb_m_15_year_area_ha := mpb_m_15_year_area_ha / area_ha]
+
+
+
+# get change in values for comapring rates of change
+data [, delta_af_survival_rate_all := af_survival_rate_all - shift (af_survival_rate_all, n = 1, type = "lag"), by = name_sa]
+data [, delta_calves_100cows := calves_100cows - shift (calves_100cows, n = 1, type = "lag"), by = name_sa]
+data [, delta_cut_8_year_area_ha := cut_8_year_area_ha - shift (cut_8_year_area_ha, n = 1, type = "lag"), by = name_sa]
+data [, delta_cut_15_year_area_ha := cut_15_year_area_ha - shift (cut_15_year_area_ha, n = 1, type = "lag"), by = name_sa]
+data [, delta_cut_25_year_area_ha := cut_25_year_area_ha - shift (cut_25_year_area_ha, n = 1, type = "lag"), by = name_sa]
+data [, delta_mpb_m_8_year_area_ha := mpb_m_8_year_area_ha - shift (mpb_m_8_year_area_ha, n = 1, type = "lag"), by = name_sa]
+data [, delta_mpb_all_15_year_area_ha := mpb_all_15_year_area_ha - shift (mpb_all_15_year_area_ha, n = 1, type = "lag"), by = name_sa]
+
+
+
+
+
+
+
+
+write.csv (data, here ("./data/data.csv"))
+```
+
+
+### Descriptive Stats and Visualization
+- look at distribtuion of data 
+
+```{r exploratory stats and data vis, echo = T, message = F, warning = F}
+
+ggplot (data, aes (x = pttype, y = slope)) +
+  geom_point()
+
+
+
+### OUTLIERS ###
+ggplot (data, aes (x = pttype, y = slope)) +
+        geom_boxplot (outlier.colour = "red") +
+        labs (title = "Boxplot DU7, Early Winter Slope at Available (0) and Used (1) Locations",
+              x = "Available (0) and Used (1) Locations",
+              y = "Slope")
+
+
+
+### HISTOGRAMS ###
+ggplot (rsf.data.terrain.water.du7.ew, aes (x = slope, fill = pttype)) + 
+          geom_histogram (position = "dodge", binwidth = 5) +
+          labs (title = "Histogram DU7, Early Winter Slope at Available (0) and Used (1) Locations",
+                x = "Slope",
+                y = "Count") +
+          scale_fill_discrete (name = "Location Type")
+
+
+### CORRELATION ###
+corr.terrain.water.du7.ew <- rsf.data.terrain.water.du7.ew [c (10:15)]
+corr.terrain.water.du7.ew <- round (cor (corr.terrain.water.du7.ew, method = "spearman"), 3)
+ggcorrplot (corr.terrain.water.du7.ew, type = "lower", lab = TRUE, tl.cex = 10,  lab_size = 3,
+            title = "Terrain and Water Resource Selection Function Model
+            Covariate Correlations for DU7, Early Winter")
+ggsave ("C:\\Work\\caribou\\clus_github\\reports\\caribou_rsf\\plots\\corr_terrain_water_du7_ew.png")
+
+
+
+```
 
 
 
 ### Model
 
-- cumualtive sums of disturbances, 8 year, 15, 25 year?
+
