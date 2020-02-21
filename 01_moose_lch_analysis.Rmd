@@ -19,7 +19,6 @@ See the License for the specific language governing permissions and limitations 
 -->
 
 ```{r setup, include=FALSE}
-
 knitr::opts_chunk$set(echo = TRUE)
 library (data.table)
 library (downloader)
@@ -28,7 +27,6 @@ library (ggplot2)
 library (here)
 library (lwgeom)
 library (sf)
-
 ```
 
 ## Introduction
@@ -255,7 +253,7 @@ gc ()
 ```
 
 #### Beetle Disturbances
-I measured insect disturbance in management areas using data collected by the government of British Columbia using aerial survey  [methods](https://www2.gov.bc.ca/gov/content/industry/forestry/managing-our-forest-resources/forest-health/aerial-overview-surveys/methods). Data are accessible through an [FTP site](https://www.for.gov.bc.ca/ftp/HFP/external/!publish/Aerial_Overview/), and I downloaded annual datsets from 1999 to 2017.  
+I measured insect disturbance in management areas using data collected by the government of British Columbia using aerial survey  [methods](https://www2.gov.bc.ca/gov/content/industry/forestry/managing-our-forest-resources/forest-health/aerial-overview-surveys/methods). Data are accessible through an [FTP site](https://www.for.gov.bc.ca/ftp/HFP/external/!publish/Aerial_Overview/), and I downloaded annual datsets from 1999 to 2018.  
 
 I summarized the area of moderate (11 to 29%), severe (30 to 49%) and very severe (>50%) levels of disturbance from bettle's including: mountain pine beetle, spruce beetle, Dougals fir beetle, western balsam bark beetle and western pine beetle in each WMU. 
 
@@ -307,87 +305,87 @@ poly.sa.habitat [is.na (poly.sa.habitat)] <- 0
 poly.sa.habitat <<- poly.sa.habitat
 }
 
-fxn.mpb.summary (dsn, survey.year, poly.sa.habitat)
+# fxn.mpb.summary (dsn, survey.year, poly.sa.habitat)
 
 fxn.mpb.summary (
-  "C:\\Work\\caribou\\clus_data\\forest_health\\mpb_cumulative\\mpb_cumulative_2000.shp", 
- "surv2000", 
+  "C:\\Work\\caribou\\clus_data\\forest_health\\mpb_sa\\fh_1999_sa_union.shp", 
+ "survey1999", 
    poly.sa.habitat)
 fxn.mpb.summary (
-  "C:\\Work\\caribou\\clus_data\\forest_health\\mpb_cumulative\\mpb_cumulative_2000.shp", 
-  "surv2000", 
+  "C:\\Work\\caribou\\clus_data\\forest_health\\mpb_sa\\fh_2000_cumul.shp", 
+  "survey2000", 
    poly.sa.habitat)
 fxn.mpb.summary (
-  "C:\\Work\\caribou\\clus_data\\forest_health\\mpb_cumulative\\mpb_cumulative_2001.shp", 
-  "surv2001", 
+  "C:\\Work\\caribou\\clus_data\\forest_health\\mpb_sa\\fh_2001_cumul.shp", 
+  "survey2001", 
    poly.sa.habitat)
 fxn.mpb.summary (
-  "C:\\Work\\caribou\\clus_data\\forest_health\\mpb_cumulative\\mpb_cumulative_2002.shp", 
- "surv2002", 
+  "C:\\Work\\caribou\\clus_data\\forest_health\\mpb_sa\\fh_2002_cumul.shp", 
+ "survey2002", 
    poly.sa.habitat)
 fxn.mpb.summary (
-  "C:\\Work\\caribou\\clus_data\\forest_health\\mpb_cumulative\\mpb_cumulative_2003.shp", 
- "surv2003", 
+  "C:\\Work\\caribou\\clus_data\\forest_health\\mpb_sa\\fh_2003_cumul.shp", 
+ "survey2003", 
    poly.sa.habitat)
 fxn.mpb.summary (
-  "C:\\Work\\caribou\\clus_data\\forest_health\\mpb_cumulative\\mpb_cumulative_2004.shp", 
-  "surv2004", 
+  "C:\\Work\\caribou\\clus_data\\forest_health\\mpb_sa\\fh_2004_cumul.shp", 
+  "survey2004", 
    poly.sa.habitat)
 fxn.mpb.summary (
-  "C:\\Work\\caribou\\clus_data\\forest_health\\mpb_cumulative\\mpb_cumulative_2005.shp", 
-  "surv2005", 
+  "C:\\Work\\caribou\\clus_data\\forest_health\\mpb_sa\\fh_2005_cumul.shp", 
+  "survey2005", 
    poly.sa.habitat)
 fxn.mpb.summary (
-  "C:\\Work\\caribou\\clus_data\\forest_health\\mpb_cumulative\\mpb_cumulative_2006.shp", 
-  "surv2006", 
+  "C:\\Work\\caribou\\clus_data\\forest_health\\mpb_sa\\fh_2006_cumul.shp", 
+  "survey2006", 
    poly.sa.habitat)
 fxn.mpb.summary (
-  "C:\\Work\\caribou\\clus_data\\forest_health\\mpb_cumulative\\mpb_cumulative_2007.shp", 
-  "surv2007", 
+  "C:\\Work\\caribou\\clus_data\\forest_health\\mpb_sa\\fh_2007_cumul.shp", 
+  "survey2007", 
    poly.sa.habitat)
 fxn.mpb.summary (
-  "C:\\Work\\caribou\\clus_data\\forest_health\\mpb_cumulative\\mpb_cumulative_2008.shp", 
-  "surv2008", 
+  "C:\\Work\\caribou\\clus_data\\forest_health\\mpb_sa\\fh_2008_cumul.shp", 
+  "survey2008", 
    poly.sa.habitat)
 fxn.mpb.summary (
-  "C:\\Work\\caribou\\clus_data\\forest_health\\mpb_cumulative\\mpb_cumulative_2009.shp", 
-  "surv2009", 
+  "C:\\Work\\caribou\\clus_data\\forest_health\\mpb_sa\\fh_2009_cumul.shp", 
+  "survey2009", 
    poly.sa.habitat)
 fxn.mpb.summary (
-  "C:\\Work\\caribou\\clus_data\\forest_health\\mpb_cumulative\\mpb_cumulative_2010.shp", 
-  "surv2010", 
+  "C:\\Work\\caribou\\clus_data\\forest_health\\mpb_sa\\fh_2010_cumul.shp", 
+  "survey2010", 
    poly.sa.habitat)
 fxn.mpb.summary (
-  "C:\\Work\\caribou\\clus_data\\forest_health\\mpb_cumulative\\mpb_cumulative_2011.shp", 
-  "surv2011", 
+  "C:\\Work\\caribou\\clus_data\\forest_health\\mpb_sa\\fh_2011_cumul.shp", 
+  "survey2011", 
    poly.sa.habitat)
 fxn.mpb.summary (
-  "C:\\Work\\caribou\\clus_data\\forest_health\\mpb_cumulative\\mpb_cumulative_2012.shp", 
-  "surv2012", 
+  "C:\\Work\\caribou\\clus_data\\forest_health\\mpb_sa\\fh_2012_cumul.shp", 
+  "survey2012", 
    poly.sa.habitat)
 fxn.mpb.summary (
-  "C:\\Work\\caribou\\clus_data\\forest_health\\mpb_cumulative\\mpb_cumulative_2013.shp", 
-  "surv2013", 
+  "C:\\Work\\caribou\\clus_data\\forest_health\\mpb_sa\\fh_2013_cumul.shp", 
+  "survey2013", 
    poly.sa.habitat)
 fxn.mpb.summary (
-  "C:\\Work\\caribou\\clus_data\\forest_health\\mpb_cumulative\\mpb_cumulative_2014.shp", 
- "surv2014", 
+  "C:\\Work\\caribou\\clus_data\\forest_health\\mpb_sa\\fh_2014_cumul.shp", 
+ "survey2014", 
    poly.sa.habitat)
 fxn.mpb.summary (
-  "C:\\Work\\caribou\\clus_data\\forest_health\\mpb_cumulative\\mpb_cumulative_2015.shp", 
-  "surv2015", 
+  "C:\\Work\\caribou\\clus_data\\forest_health\\mpb_sa\\fh_2015_cumul.shp", 
+  "survey2015", 
    poly.sa.habitat)
 fxn.mpb.summary (
-  "C:\\Work\\caribou\\clus_data\\forest_health\\mpb_cumulative\\mpb_cumulative_2016.shp", 
-  "surv2016", 
+  "C:\\Work\\caribou\\clus_data\\forest_health\\mpb_sa\\fh_2016_cumul.shp", 
+  "survey2016", 
    poly.sa.habitat)
 fxn.mpb.summary (
-  "C:\\Work\\caribou\\clus_data\\forest_health\\mpb_cumulative\\mpb_cumulative_2017.shp", 
-  "surv2017", 
+  "C:\\Work\\caribou\\clus_data\\forest_health\\mpb_sa\\fh_2017_cumul.shp", 
+  "survey2017", 
    poly.sa.habitat)
 fxn.mpb.summary (
-  "C:\\Work\\caribou\\clus_data\\forest_health\\mpb_cumulative\\mpb_cumulative_2018.shp", 
-  "surv2018", 
+  "C:\\Work\\caribou\\clus_data\\forest_health\\mpb_sa\\fh_2018_cumul.shp", 
+  "survey2018", 
    poly.sa.habitat)
 
 # severity types: very severe (>50% of Trees in Polygon Recently Killed), severe (30% to 49%), moderate (11% to 29%)
@@ -411,72 +409,54 @@ write.csv (poly.sa.habitat, here ("./data/study_area_habitat.csv"))
 poly.sa.habitat [year == 2014, cut_8_year_area_ha := cut_2014_area_ha + cut_2013_area_ha + cut_2012_area_ha + cut_2011_area_ha + cut_2010_area_ha + cut_2009_area_ha + cut_2008_area_ha + cut_2007_area_ha]
 poly.sa.habitat [year == 2015, cut_8_year_area_ha := cut_2015_area_ha + cut_2014_area_ha + cut_2013_area_ha + cut_2012_area_ha + cut_2011_area_ha + cut_2010_area_ha + cut_2009_area_ha + cut_2008_area_ha] #where year = 2015
 poly.sa.habitat [year == 2016, cut_8_year_area_ha := cut_2016_area_ha + cut_2015_area_ha + cut_2014_area_ha + cut_2013_area_ha + cut_2012_area_ha + cut_2011_area_ha + cut_2010_area_ha + cut_2009_area_ha] #where year = 2016
-poly.sa.habitat [year == 2017, cut_8_year_area_ha := cut_2017_area_ha + cut_2016_area_ha + cut_2015_area_ha + cut_2014_area_ha + cut_2013_area_ha + cut_2012_area_ha + cut_2011_area_ha + cut_2010_area_ha] 
-poly.sa.habitat [year == 2018, cut_8_year_area_ha := cut_2018_area_ha + cut_2017_area_ha + cut_2016_area_ha + cut_2015_area_ha + cut_2014_area_ha + cut_2013_area_ha + cut_2012_area_ha + cut_2011_area_ha] 
+poly.sa.habitat [year == 2017, cut_8_year_area_ha := cut_2017_area_ha + cut_2017_area_ha + cut_2015_area_ha + cut_2014_area_ha + cut_2013_area_ha + cut_2012_area_ha + cut_2011_area_ha + cut_2010_area_ha] 
+poly.sa.habitat [year == 2018, cut_8_year_area_ha := cut_2018_area_ha + cut_2017_area_ha + cut_2017_area_ha + cut_2015_area_ha + cut_2014_area_ha + cut_2013_area_ha + cut_2012_area_ha + cut_2011_area_ha] 
 
 # Cumulative mpb  
 ### NOTE: for MPB, each year survey is cumulative, impact of previous years are included in last year, so use last survey year 
-poly.sa.habitat [year == 2014, mpb_m_8_year_area_ha := `X2014_M_surv2014` + `X2013_M_surv2014` + `X2012_M_surv2014` + `X2011_M_surv2014` + `X2010_M_surv2014` + `X2009_M_surv2014` + `X2008_M_surv2014`]
-poly.sa.habitat [year == 2014, mpb_s_8_year_area_ha :=   `X2012_S_surv2014` + `X2010_S_surv2014` + `X2009_S_surv2014` + `X2008_S_surv2014`] # no data  `X2013_S_surv2014` +  `X2014_S_surv2014` + `X2011_S_surv2014` +
-poly.sa.habitat [year == 2014, mpb_vs_8_year_area_ha :=  `X2011_V_surv2014` +  `X2009_V_surv2014` + `X2008_V_surv2014`] # no data `X2014_V_surv2014` + `X2013_V_surv2014` + `X2012_V_surv2014` +  `X2010_V_surv2014`
+poly.sa.habitat [year == 2014, mpb_m_8_year_area_ha := `2013_M_survey2014` + `2012_M_survey2014` + `2011_M_survey2014` + `2010_M_survey2014` + `2009_M_survey2014` + `2008_M_survey2014` + `2007_M_survey2014` + `2006_M_survey2014`]
+poly.sa.habitat [year == 2014, mpb_s_8_year_area_ha :=   `2012_S_survey2014` + `2010_S_survey2014` + `2009_S_survey2014` + `2008_S_survey2014` + `2007_S_survey2014` + `2006_S_survey2014`] # no data  `2013_S_survey2014` +  `2011_S_survey2014` +
+poly.sa.habitat [year == 2014, mpb_vs_8_year_area_ha :=  `2011_V_survey2014` +  `2009_V_survey2014` + `2008_V_survey2014` + `2007_V_survey2014` + `2006_V_survey2014`] # no data `2013_V_survey2014` +  `2012_V_survey2014` + `2010_V_survey2014` +
 
-poly.sa.habitat [year == 2015, mpb_m_8_year_area_ha := `X2015_M_surv2015` + `X2014_M_surv2015` + `X2013_M_surv2015` + `X2012_M_surv2015` + `X2011_M_surv2015` + `X2010_M_surv2015` + `X2009_M_surv2015`]
-poly.sa.habitat [year == 2015, mpb_s_8_year_area_ha :=  `X2012_S_surv2015` + `X2010_S_surv2015` + `X2009_S_surv2015`] # no data `2015_S_surv2015` + `2014_S_surv2015` + `2013_S_surv2015` + `2011_S_surv2015` + 
-poly.sa.habitat [year == 2015, mpb_vs_8_year_area_ha :=  `X2011_V_surv2015` +   `X2009_V_surv2015`] # no data `2015_V_surv2015` + `2014_VS_surv2015` + `2013_V_surv2015` + `2012_V_surv2015` + `2010_V_surv2015`
+poly.sa.habitat [year == 2015, mpb_m_8_year_area_ha := `2014_M_survey2015` + `2013_M_survey2015` + `2012_M_survey2015` + `2011_M_survey2015` + `2010_M_survey2015` + `2009_M_survey2015` + `2008_M_survey2015` + `2007_M_survey2015`]
+poly.sa.habitat [year == 2015, mpb_s_8_year_area_ha :=  `2012_S_survey2015` + `2010_S_survey2015` + `2009_S_survey2015` + `2008_S_survey2015` + `2007_S_survey2015`] # no data  `2014_S_survey2015` + `2013_S_survey2015` + `2011_S_survey2015` +
+poly.sa.habitat [year == 2015, mpb_vs_8_year_area_ha :=   `2011_V_survey2015` +   `2009_V_survey2015` + `2008_V_survey2015` + `2007_V_survey2015`] # no data `2014_VS_survey2015` + `2013_V_survey2015` + `2012_V_survey2015` + `2010_V_survey2015` +
 
-poly.sa.habitat [year == 2016, mpb_m_8_year_area_ha := `X2016_M_surv2016` + `X2015_M_surv2016` + `X2014_M_surv2016` + `X2013_M_surv2016` + `X2012_M_surv2016` + `X2011_M_surv2016` + `X2010_M_surv2016`]
-poly.sa.habitat [year == 2016, mpb_s_8_year_area_ha :=  `X2016_S_surv2016` +  `X2012_S_surv2016` +  `X2010_S_surv2016`] # no data  `2015_S_surv2016` + `2014_S_surv2016` + `2013_S_surv2016` + `2011_S_surv2016`
-poly.sa.habitat [year == 2016, mpb_vs_8_year_area_ha :=   `X2011_V_surv2016`] # no data `2016_V_surv2016` + `2015_VS_surv2016` + `2014_V_surv2016` + `2013_V_surv2016` + `2012_V_surv2016` +  +  `2010_V_surv2016`
+poly.sa.habitat [year == 2016, mpb_m_8_year_area_ha := `2015_M_survey2016` + `2014_M_survey2016` + `2013_M_survey2016` + `2012_M_survey2016` + `2011_M_survey2016` + `2010_M_survey2016` +`2009_M_survey2016` + `2008_M_survey2016`]
+poly.sa.habitat [year == 2016, mpb_s_8_year_area_ha :=   `2012_S_survey2016` +  `2010_S_survey2016` + `2009_S_survey2016` + `2008_S_survey2016`] # no data  `2015_S_survey2016` + `2014_S_survey2016` + `2013_S_survey2016` + `2011_S_survey2016` + 
+poly.sa.habitat [year == 2016, mpb_vs_8_year_area_ha :=  `2011_V_survey2016` + `2008_V_survey2016`] # no data `2015_VS_survey2016` + `2014_V_survey2016` + `2013_V_survey2016` +  `2010_V_survey2016` +  `2012_V_survey2016` +    
 
-poly.sa.habitat [year == 2017, mpb_m_8_year_area_ha := `X2017_M_surv2017` + `X2016_M_surv2017` + `X2015_M_surv2017` + `X2014_M_surv2017` + `X2013_M_surv2017` + `X2012_M_surv2017` + `X2011_M_surv2017`]
-poly.sa.habitat [year == 2017, mpb_s_8_year_area_ha := `X2017_S_surv2017` +  `X2016_S_surv2017` +  `X2012_S_surv2017` ] # no data  `2015_S_surv2017` + `2014_S_surv2017` + `2013_S_surv2017` + `2011_S_surv2017`
-poly.sa.habitat [year == 2017, mpb_vs_8_year_area_ha :=  `X2011_V_surv2017`] # no data `2017_V_surv2017` + `2016_VS_surv2017` + `2015_V_surv2017` + `2014_V_surv2017` + `2013_V_surv2017`  + `2012_V_surv2017` +
+poly.sa.habitat [year == 2017, mpb_m_8_year_area_ha := `2016_M_survey2017` + `2015_M_survey2017` + `2014_M_survey2017` + `2013_M_survey2017` + `2012_M_survey2017` + `2011_M_survey2017` + `2010_M_survey2017` + `2009_M_survey2017`]
+poly.sa.habitat [year == 2017, mpb_s_8_year_area_ha :=  `2016_S_survey2017` +  `2012_S_survey2017` + `2010_M_survey2017` + `2009_M_survey2017`] # no data `2015_S_survey2017` + `2014_S_survey2017` + `2013_S_survey2017` +  `2011_S_survey2017` + 
+poly.sa.habitat [year == 2017, mpb_vs_8_year_area_ha :=  `2011_V_survey2017` +  `2009_V_survey2017`] # no data 2016_VS_survey2017` + `2015_V_survey2017` + `2014_V_survey2017` + `2013_V_survey2017`  + `2012_V_survey2017` + `2010_V_survey2017` +
 
-poly.sa.habitat [year == 2018, mpb_m_8_year_area_ha := `X2018_M_surv2018` + `X2017_M_surv2018` + `X2016_M_surv2018` + `X2015_M_surv2018` + `X2014_M_surv2018` + `X2013_M_surv2018` + `X2012_M_surv2018`]
-poly.sa.habitat [year == 2018, mpb_s_8_year_area_ha := `X2018_S_surv2018` +  `X2017_S_surv2018` +  `X2016_S_surv2018` + `X2012_S_surv2018`] # no data  `2015_S_surv2018` + `2014_S_surv2018` + `2013_S_surv2018` +
-poly.sa.habitat [year == 2018, mpb_vs_8_year_area_ha :=   0] # no data `2018_V_surv2018` + `2017_VS_surv2018` + `2016_V_surv2018` +  `2015_V_surv2018` + `2014_V_surv2018`  + `2013_V_surv2018` + `2012_V_surv2018`
+poly.sa.habitat [year == 2018, mpb_m_8_year_area_ha := `2017_M_survey2018` + `2016_M_survey2018` + `2015_M_survey2018` + `2014_M_survey2018` + `2013_M_survey2018` + `2012_M_survey2018`  + `2011_M_survey2018`  + `2010_M_survey2018`]
+poly.sa.habitat [year == 2018, mpb_s_8_year_area_ha :=  `2017_S_survey2018` +  `2016_S_survey2018` + `2012_S_survey2018` +  `2010_S_survey2018`] # no data  `2015_S_survey2018` + `2014_S_survey2018` + `2013_S_survey2018` + `2011_S_survey2018` +
+poly.sa.habitat [year == 2018, mpb_vs_8_year_area_ha :=  `2011_V_survey2018`] # no data `2018_V_survey2018` + `2017_VS_survey2018` +  `2017_V_survey2018` +  `2015_V_survey2018` + `2014_V_survey2018`  +  `2013_V_survey2018` + `2012_V_survey2018` + + `2010_V_survey2018`
 
 # cumulative mod, severe and very severe
 poly.sa.habitat [, mpb_all_8_year_area_ha := mpb_m_8_year_area_ha + mpb_s_8_year_area_ha + mpb_vs_8_year_area_ha]
 
-# 15 year cumulative cut disturbance 
-poly.sa.habitat [year == 2014, mpb_m_15_year_area_ha := `2014_M_surv2014` + `2013_M_surv2014` + `2012_M_surv2014` + `2011_M_surv2014` + `2010_M_surv2014` + `2009_M_surv2014` + `2008_M_surv2014` + `2007_M_surv2014` + `2006_M_surv2014` + `2005_M_surv2014` + `2004_M_surv2014` + `2003_M_surv2014` + `2002_M_surv2014` + `2001_M_surv2014` + `2000_M_surv2014`]
-poly.sa.habitat [year == 2014, mpb_s_15_year_area_ha :=   `2012_S_surv2014` + `2010_S_surv2014` + `2009_S_surv2014` + `2008_S_surv2014` + `2007_S_surv2014` + `2006_S_surv2014` + `2005_S_surv2014` + `2004_S_surv2014` + `2003_S_surv2014` + `2002_S_surv2014` + `2001_S_surv2014` + `2000_S_surv2014`] # no data `2013_S_surv2014` +  `2014_S_surv2014` + `2011_S_surv2014` +
-poly.sa.habitat [year == 2014, mpb_vs_15_year_area_ha :=    `2011_V_surv2014` + `2009_V_surv2014` + `2008_V_surv2014` + `2007_V_surv2014` + `2006_V_surv2014` + `2005_V_surv2014` + `2004_V_surv2014` + `2003_V_surv2014` ] # no data `2014_V_surv2014` + `2013_V_surv2014` + `2012_V_surv2014` + `2010_V_surv2014` + `2002_V_surv2014` + `2001_V_surv2014` +   `2000_V_surv2014`
+# 15 year cumulative mpb disturbance 
+poly.sa.habitat [year == 2014, mpb_m_15_year_area_ha := `2013_M_survey2014` + `2012_M_survey2014` + `2011_M_survey2014` + `2010_M_survey2014` + `2009_M_survey2014` + `2008_M_survey2014` + `2007_M_survey2014` + `2006_M_survey2014` + `2005_M_survey2014` + `2004_M_survey2014` + `2003_M_survey2014` + `2002_M_survey2014` + `2001_M_survey2014` + `2000_M_survey2014` + `1999_M_survey2014`]
+poly.sa.habitat [year == 2014, mpb_s_15_year_area_ha :=   `2012_S_survey2014` + `2010_S_survey2014` + `2009_S_survey2014` + `2008_S_survey2014` + `2007_S_survey2014` + `2006_S_survey2014` + `2005_S_survey2014` + `2004_S_survey2014` + `2003_S_survey2014` + `2002_S_survey2014` + `2001_S_survey2014` + `2000_S_survey2014` + `1999_S_survey2014`] # no data  `2013_S_survey2014` +  `2011_S_survey2014` +
+poly.sa.habitat [year == 2014, mpb_vs_15_year_area_ha :=    `2011_V_survey2014` + `2009_V_survey2014` + `2008_V_survey2014` + `2007_V_survey2014` + `2006_V_survey2014` + `2005_V_survey2014` + `2004_V_survey2014` + `2003_V_survey2014`] # no data  `2000_V_survey2014` + `2013_V_survey2014` + `2012_V_survey2014` + `2002_V_survey2014` + `2010_V_survey2014` + `2001_V_survey2014`  + `1999_V_survey2014`   
  
-poly.sa.habitat [year == 2015, mpb_m_15_year_area_ha := `2015_M_surv2015` + `2014_M_surv2015` + `2013_M_surv2015` + `2012_M_surv2015` + `2011_M_surv2015` + `2010_M_surv2015` + `2009_M_surv2015` + `2008_M_surv2015` + `2007_M_surv2015` + `2006_M_surv2015` + `2005_M_surv2015` + `2004_M_surv2015` + `2003_M_surv2015` + `2002_M_surv2015` + `2001_M_surv2015`]
-poly.sa.habitat [year == 2015, mpb_s_15_year_area_ha :=     `2012_S_surv2015` +  `2010_S_surv2015` + `2009_S_surv2015` + `2008_S_surv2015` + `2007_S_surv2015` + `2006_S_surv2015` + `2005_S_surv2015` + `2004_S_surv2015` + `2003_S_surv2015` + `2002_S_surv2015` + `2001_S_surv2015`] # no data `2015_S_surv2015` + `2014_S_surv2015` + `2013_S_surv2015` + `2011_S_surv2015` +
-poly.sa.habitat [year == 2015, mpb_vs_15_year_area_ha :=      `2011_V_surv2015` + `2009_V_surv2015` + `2008_V_surv2015` + `2007_V_surv2015` + `2006_V_surv2015` + `2005_V_surv2015` + `2004_V_surv2015` + `2003_V_surv2015` ] # no data  `2015_V_surv2015` +  `2014_V_surv2015` + `2013_V_surv2015` + `2012_V_surv2015` +  `2010_V_surv2015` +  `2002_V_surv2015`  + `2001_V_surv2015`
+poly.sa.habitat [year == 2015, mpb_m_15_year_area_ha := `2014_M_survey2015` + `2013_M_survey2015` + `2012_M_survey2015` + `2011_M_survey2015` + `2010_M_survey2015` + `2009_M_survey2015` + `2008_M_survey2015` + `2007_M_survey2015` + `2006_M_survey2015` + `2005_M_survey2015` + `2004_M_survey2015` + `2003_M_survey2015` + `2002_M_survey2015` + `2001_M_survey2015` + `2000_M_survey2015`]
+poly.sa.habitat [year == 2015, mpb_s_15_year_area_ha :=    `2012_S_survey2015` +  `2010_S_survey2015` + `2009_S_survey2015` + `2008_S_survey2015` + `2007_S_survey2015` + `2006_S_survey2015` + `2005_S_survey2015` + `2004_S_survey2015` + `2003_S_survey2015` + `2002_S_survey2015` + `2001_S_survey2015` + `2000_S_survey2015`] # no data `2014_S_survey2015` + `2013_S_survey2015` + `2011_S_survey2015` +  
+poly.sa.habitat [year == 2015, mpb_vs_15_year_area_ha :=  `2011_V_survey2015` + `2009_V_survey2015` + `2008_V_survey2015` + `2007_V_survey2015` + `2006_V_survey2015` + `2005_V_survey2015` + `2004_V_survey2015` + `2003_V_survey2015` ] # no data  `2014_V_survey2015` +  `2013_V_survey2015` +  `2012_V_survey2015` +  `2010_V_survey2015` +  `2002_V_survey2015`  + `2001_V_survey2015` + `2000_V_survey2015`   
 
+poly.sa.habitat [year == 2016, mpb_m_15_year_area_ha := `2015_M_survey2016` + `2014_M_survey2016` + `2013_M_survey2016` + `2012_M_survey2016` + `2011_M_survey2016` + `2010_M_survey2016` + `2009_M_survey2016` + `2008_M_survey2016` + `2007_M_survey2016` + `2006_M_survey2016` + `2005_M_survey2016` + `2004_M_survey2016` + `2003_M_survey2016` + `2002_M_survey2016` + `2001_M_survey2016`]
+poly.sa.habitat [year == 2016, mpb_s_15_year_area_ha := `2012_S_survey2016` +  `2010_S_survey2016` + `2009_S_survey2016` + `2008_S_survey2016` + `2007_S_survey2016` + `2006_S_survey2016` + `2005_S_survey2016` + `2004_S_survey2016` + `2003_S_survey2016` + `2002_S_survey2016` + `2001_S_survey2016`] # no data `2015_S_survey2016` + `2014_S_survey2016` +   `2013_S_survey2016` + `2011_S_survey2016` +
+poly.sa.habitat [year == 2016, mpb_vs_15_year_area_ha :=   `2011_V_survey2016` +   `2009_V_survey2016` + `2008_V_survey2016` + `2007_V_survey2016` + `2006_V_survey2016` + `2005_V_survey2016` + `2004_V_survey2016` + `2003_V_survey2016` ] # no data  `2015_V_survey2016` +  `2014_V_survey2016` +  `2013_V_survey2016` + `2012_V_survey2016` +  `2010_V_survey2016` +  `2002_V_survey2016` + `2001_V_survey2016`
 
+poly.sa.habitat [year == 2017, mpb_m_15_year_area_ha := `2016_M_survey2017` + `2015_M_survey2017` + `2014_M_survey2017` + `2013_M_survey2017` + `2012_M_survey2017` + `2011_M_survey2017` + `2010_M_survey2017` + `2009_M_survey2017` + `2008_M_survey2017` + `2007_M_survey2017` + `2006_M_survey2017` + `2005_M_survey2017` + `2004_M_survey2017` + `2003_M_survey2017` + `2002_M_survey2017`]
+poly.sa.habitat [year == 2017, mpb_s_15_year_area_ha := `2016_S_survey2017` +   `2012_S_survey2017` + `2010_S_survey2017` + `2009_S_survey2017` + `2008_S_survey2017` + `2007_S_survey2017` + `2006_S_survey2017` + `2005_S_survey2017` + `2004_S_survey2017` + `2003_S_survey2017` + `2002_S_survey2017`] # no data `2015_S_survey2017` +`2014_S_survey2017` +  `2013_S_survey2017` + `2011_S_survey2017` + 
+poly.sa.habitat [year == 2017, mpb_vs_15_year_area_ha :=    `2011_V_survey2017` +  `2009_V_survey2017` + `2008_V_survey2017` + `2007_V_survey2017` + `2006_V_survey2017` + `2005_V_survey2017` + `2004_V_survey2017` + `2003_V_survey2017` ] # no data `2016_V_survey2017` + `2015_V_survey2017` + `2014_V_survey2017` + `2013_V_survey2017` +  `2012_V_survey2017` + `2010_V_survey2017` + `2002_V_survey2017`
 
-
-
-###
-
-
-
-
-# 15 year cumulative mpb very severe disturbance 
-poly.sa.habitat [year == 2014, mpb_vs_15_year_area_ha := mpb_2014versev_area_ha + mpb_2013versev_area_ha + mpb_2012versev_area_ha + mpb_2011versev_area_ha + mpb_2010versev_area_ha + mpb_2009versev_area_ha + mpb_2008versev_area_ha + mpb_2007versev_area_ha + mpb_2006versev_area_ha + mpb_2005versev_area_ha + mpb_2004versev_area_ha + mpb_2003versev_area_ha + mpb_2002versev_area_ha + mpb_2001versev_area_ha + mpb_2000versev_area_ha]
-poly.sa.habitat [year == 2015, mpb_vs_15_year_area_ha := mpb_2015versev_area_ha + mpb_2014versev_area_ha + mpb_2013versev_area_ha + mpb_2012versev_area_ha + mpb_2011versev_area_ha + mpb_2010versev_area_ha + mpb_2009versev_area_ha + mpb_2008versev_area_ha + mpb_2007versev_area_ha + mpb_2006versev_area_ha + mpb_2005versev_area_ha + mpb_2004versev_area_ha + mpb_2003versev_area_ha + mpb_2002versev_area_ha + mpb_2001versev_area_ha]
-poly.sa.habitat [year == 2016, mpb_vs_15_year_area_ha := mpb_2016versev_area_ha + mpb_2015versev_area_ha + mpb_2014versev_area_ha + mpb_2013versev_area_ha + mpb_2012versev_area_ha + mpb_2011versev_area_ha + mpb_2010versev_area_ha + mpb_2009versev_area_ha + mpb_2008versev_area_ha + mpb_2007versev_area_ha + mpb_2006versev_area_ha + mpb_2005versev_area_ha + mpb_2004versev_area_ha + mpb_2003versev_area_ha + mpb_2002versev_area_ha]
-poly.sa.habitat [year == 2017, mpb_vs_15_year_area_ha := mpb_2017versev_area_ha + mpb_2016versev_area_ha + mpb_2015versev_area_ha + mpb_2014versev_area_ha + mpb_2013versev_area_ha + mpb_2012versev_area_ha + mpb_2011versev_area_ha + mpb_2010versev_area_ha + mpb_2009versev_area_ha + mpb_2008versev_area_ha + mpb_2007versev_area_ha + mpb_2006versev_area_ha + mpb_2005versev_area_ha + mpb_2004versev_area_ha + mpb_2003versev_area_ha]
-poly.sa.habitat [year == 2018, mpb_vs_15_year_area_ha := mpb_2018versev_area_ha + mpb_2017versev_area_ha + mpb_2016versev_area_ha + mpb_2015versev_area_ha + mpb_2014versev_area_ha + mpb_2013versev_area_ha + mpb_2012versev_area_ha + mpb_2011versev_area_ha + mpb_2010versev_area_ha + mpb_2009versev_area_ha + mpb_2008versev_area_ha + mpb_2007versev_area_ha + mpb_2006versev_area_ha + mpb_2005versev_area_ha + mpb_2004versev_area_ha]
-
-# 15 year cumulative mpb severe disturbance 
-poly.sa.habitat [year == 2014, mpb_s_15_year_area_ha := mpb_2014sev_area_ha + mpb_2013sev_area_ha + mpb_2012sev_area_ha + mpb_2011sev_area_ha + mpb_2010sev_area_ha + mpb_2009sev_area_ha + mpb_2008sev_area_ha + mpb_2007sev_area_ha + mpb_2006sev_area_ha + mpb_2005sev_area_ha + mpb_2004sev_area_ha + mpb_2003sev_area_ha + mpb_2002sev_area_ha + mpb_2001sev_area_ha + mpb_2000sev_area_ha]
-poly.sa.habitat [year == 2015, mpb_s_15_year_area_ha := mpb_2015sev_area_ha + mpb_2014sev_area_ha + mpb_2013sev_area_ha + mpb_2012sev_area_ha + mpb_2011sev_area_ha + mpb_2010sev_area_ha + mpb_2009sev_area_ha + mpb_2008sev_area_ha + mpb_2007sev_area_ha + mpb_2006sev_area_ha + mpb_2005sev_area_ha + mpb_2004sev_area_ha + mpb_2003sev_area_ha + mpb_2002sev_area_ha + mpb_2001sev_area_ha]
-poly.sa.habitat [year == 2016, mpb_s_15_year_area_ha := mpb_2016sev_area_ha + mpb_2015sev_area_ha + mpb_2014sev_area_ha + mpb_2013sev_area_ha + mpb_2012sev_area_ha + mpb_2011sev_area_ha + mpb_2010sev_area_ha + mpb_2009sev_area_ha + mpb_2008sev_area_ha + mpb_2007sev_area_ha + mpb_2006sev_area_ha + mpb_2005sev_area_ha + mpb_2004sev_area_ha + mpb_2003sev_area_ha + mpb_2002sev_area_ha]
-poly.sa.habitat [year == 2017, mpb_s_15_year_area_ha := mpb_2017sev_area_ha + mpb_2016sev_area_ha + mpb_2015sev_area_ha + mpb_2014sev_area_ha + mpb_2013sev_area_ha + mpb_2012sev_area_ha + mpb_2011sev_area_ha + mpb_2010sev_area_ha + mpb_2009sev_area_ha + mpb_2008sev_area_ha + mpb_2007sev_area_ha + mpb_2006sev_area_ha + mpb_2005sev_area_ha + mpb_2004sev_area_ha + mpb_2003sev_area_ha]
-poly.sa.habitat [year == 2018, mpb_s_15_year_area_ha := mpb_2018sev_area_ha + mpb_2017sev_area_ha + mpb_2016sev_area_ha + mpb_2015sev_area_ha + mpb_2014sev_area_ha + mpb_2013sev_area_ha + mpb_2012sev_area_ha + mpb_2011sev_area_ha + mpb_2010sev_area_ha + mpb_2009sev_area_ha + mpb_2008sev_area_ha + mpb_2007sev_area_ha + mpb_2006sev_area_ha + mpb_2005sev_area_ha + mpb_2004sev_area_ha]
-
-# 15 year cumulative mpb moderate disturbance 
-poly.sa.habitat [year == 2014, mpb_m_15_year_area_ha := mpb_2014mod_area_ha + mpb_2013mod_area_ha + mpb_2012mod_area_ha + mpb_2011mod_area_ha + mpb_2010mod_area_ha + mpb_2009mod_area_ha + mpb_2008mod_area_ha + mpb_2007mod_area_ha + mpb_2006mod_area_ha + mpb_2005mod_area_ha + mpb_2004mod_area_ha + mpb_2003mod_area_ha + mpb_2002mod_area_ha + mpb_2001mod_area_ha + mpb_2000mod_area_ha]
-poly.sa.habitat [year == 2015, mpb_m_15_year_area_ha := mpb_2015mod_area_ha + mpb_2014mod_area_ha + mpb_2013mod_area_ha + mpb_2012mod_area_ha + mpb_2011mod_area_ha + mpb_2010mod_area_ha + mpb_2009mod_area_ha + mpb_2008mod_area_ha + mpb_2007mod_area_ha + mpb_2006mod_area_ha + mpb_2005mod_area_ha + mpb_2004mod_area_ha + mpb_2003mod_area_ha + mpb_2002mod_area_ha + mpb_2001mod_area_ha]
-poly.sa.habitat [year == 2016, mpb_m_15_year_area_ha := mpb_2016mod_area_ha + mpb_2015mod_area_ha + mpb_2014mod_area_ha + mpb_2013mod_area_ha + mpb_2012mod_area_ha + mpb_2011mod_area_ha + mpb_2010mod_area_ha + mpb_2009mod_area_ha + mpb_2008mod_area_ha + mpb_2007mod_area_ha + mpb_2006mod_area_ha + mpb_2005mod_area_ha + mpb_2004mod_area_ha + mpb_2003mod_area_ha + mpb_2002mod_area_ha]
-poly.sa.habitat [year == 2017, mpb_m_15_year_area_ha := mpb_2017mod_area_ha + mpb_2016mod_area_ha + mpb_2015mod_area_ha + mpb_2014mod_area_ha + mpb_2013mod_area_ha + mpb_2012mod_area_ha + mpb_2011mod_area_ha + mpb_2010mod_area_ha + mpb_2009mod_area_ha + mpb_2008mod_area_ha + mpb_2007mod_area_ha + mpb_2006mod_area_ha + mpb_2005mod_area_ha + mpb_2004mod_area_ha + mpb_2003mod_area_ha]
-poly.sa.habitat [year == 2018, mpb_m_15_year_area_ha := mpb_2018mod_area_ha + mpb_2017mod_area_ha + mpb_2016mod_area_ha + mpb_2015mod_area_ha + mpb_2014mod_area_ha + mpb_2013mod_area_ha + mpb_2012mod_area_ha + mpb_2011mod_area_ha + mpb_2010mod_area_ha + mpb_2009mod_area_ha + mpb_2008mod_area_ha + mpb_2007mod_area_ha + mpb_2006mod_area_ha + mpb_2005mod_area_ha + mpb_2004mod_area_ha]
+poly.sa.habitat [year == 2018, mpb_m_15_year_area_ha := `2017_M_survey2018` + `2016_M_survey2018` + `2015_M_survey2018` + `2014_M_survey2018` + `2013_M_survey2018` + `2012_M_survey2018` + `2011_M_survey2018` + `2010_M_survey2018` + `2009_M_survey2018` + `2008_M_survey2018` + `2007_M_survey2018` + `2006_M_survey2018` + `2005_M_survey2018` + `2004_M_survey2018` + `2003_M_survey2018`]
+poly.sa.habitat [year == 2018, mpb_s_15_year_area_ha := `2017_S_survey2018` + `2016_S_survey2018` +   `2012_S_survey2018` +  `2010_S_survey2018` + `2009_S_survey2018` + `2008_S_survey2018` + `2007_S_survey2018` + `2006_S_survey2018` + `2005_S_survey2018` + `2004_S_survey2018` + `2003_S_survey2018`] # no data `2015_S_survey2018` + `2014_S_survey2018` + `2013_S_survey2018` + `2011_S_survey2018` +
+poly.sa.habitat [year == 2018, mpb_vs_15_year_area_ha := `2011_V_survey2018` +  `2009_V_survey2018` + `2008_V_survey2018` + `2007_V_survey2018` + `2006_V_survey2018` + `2005_V_survey2018` + `2004_V_survey2018` + `2003_V_survey2018`] # no data `2017_V_survey2018` + `2016_V_survey2018` +  `2015_V_survey2018` + `2014_V_survey2018` + `2013_V_survey2018` + `2012_V_survey2018` + `2010_V_survey2018` +
 
 # 15 year cumulative mod, severe and very severe
 poly.sa.habitat [, mpb_all_15_year_area_ha := mpb_m_15_year_area_ha + mpb_s_15_year_area_ha + mpb_vs_15_year_area_ha]
@@ -484,9 +464,9 @@ poly.sa.habitat [, mpb_all_15_year_area_ha := mpb_m_15_year_area_ha + mpb_s_15_y
 # 15 year cumulative cut disturbance 
 poly.sa.habitat [year == 2014, cut_25_year_area_ha := cut_2014_area_ha + cut_2013_area_ha + cut_2012_area_ha + cut_2011_area_ha + cut_2010_area_ha + cut_2009_area_ha + cut_2008_area_ha + cut_2007_area_ha + cut_2006_area_ha + cut_2005_area_ha + cut_2004_area_ha + cut_2003_area_ha + cut_2002_area_ha + cut_2001_area_ha + cut_2000_area_ha + cut_1999_area_ha + cut_1998_area_ha + cut_1997_area_ha + cut_1996_area_ha + cut_1995_area_ha + cut_1994_area_ha + cut_1993_area_ha + cut_1992_area_ha + cut_1991_area_ha + cut_1990_area_ha]
 poly.sa.habitat [year == 2015, cut_25_year_area_ha := cut_2015_area_ha + cut_2014_area_ha + cut_2013_area_ha + cut_2012_area_ha + cut_2011_area_ha + cut_2010_area_ha + cut_2009_area_ha + cut_2008_area_ha + cut_2007_area_ha + cut_2006_area_ha + cut_2005_area_ha + cut_2004_area_ha + cut_2003_area_ha + cut_2002_area_ha + cut_2001_area_ha + cut_2000_area_ha + cut_1999_area_ha + cut_1998_area_ha + cut_1997_area_ha + cut_1996_area_ha + cut_1995_area_ha + cut_1994_area_ha + cut_1993_area_ha + cut_1992_area_ha + cut_1991_area_ha] 
-poly.sa.habitat [year == 2016, cut_25_year_area_ha := cut_2016_area_ha + cut_2015_area_ha + cut_2014_area_ha + cut_2013_area_ha + cut_2012_area_ha + cut_2011_area_ha + cut_2010_area_ha + cut_2009_area_ha + cut_2008_area_ha + cut_2007_area_ha + cut_2006_area_ha + cut_2005_area_ha + cut_2004_area_ha + cut_2003_area_ha + cut_2002_area_ha + cut_2001_area_ha + cut_2000_area_ha + cut_1999_area_ha + cut_1998_area_ha + cut_1997_area_ha + cut_1996_area_ha + cut_1995_area_ha + cut_1994_area_ha + cut_1993_area_ha + cut_1992_area_ha] 
-poly.sa.habitat [year == 2017, cut_25_year_area_ha := cut_2017_area_ha + cut_2016_area_ha + cut_2015_area_ha + cut_2014_area_ha + cut_2013_area_ha + cut_2012_area_ha + cut_2011_area_ha + cut_2010_area_ha + cut_2009_area_ha + cut_2008_area_ha + cut_2007_area_ha + cut_2006_area_ha + cut_2005_area_ha + cut_2004_area_ha + cut_2003_area_ha + cut_2002_area_ha + cut_2001_area_ha + cut_2000_area_ha + cut_1999_area_ha + cut_1998_area_ha + cut_1997_area_ha + cut_1996_area_ha + cut_1995_area_ha + cut_1994_area_ha + cut_1993_area_ha] 
-poly.sa.habitat [year == 2018, cut_25_year_area_ha := cut_2018_area_ha + cut_2017_area_ha + cut_2016_area_ha + cut_2015_area_ha + cut_2014_area_ha + cut_2013_area_ha + cut_2012_area_ha + cut_2011_area_ha + cut_2010_area_ha + cut_2009_area_ha + cut_2008_area_ha + cut_2007_area_ha + cut_2006_area_ha + cut_2005_area_ha + cut_2004_area_ha + cut_2003_area_ha + cut_2002_area_ha + cut_2001_area_ha + cut_2000_area_ha + cut_1999_area_ha + cut_1998_area_ha + cut_1997_area_ha + cut_1996_area_ha + cut_1995_area_ha + cut_1994_area_ha] 
+poly.sa.habitat [year == 2017, cut_25_year_area_ha := cut_2017_area_ha + cut_2015_area_ha + cut_2014_area_ha + cut_2013_area_ha + cut_2012_area_ha + cut_2011_area_ha + cut_2010_area_ha + cut_2009_area_ha + cut_2008_area_ha + cut_2007_area_ha + cut_2006_area_ha + cut_2005_area_ha + cut_2004_area_ha + cut_2003_area_ha + cut_2002_area_ha + cut_2001_area_ha + cut_2000_area_ha + cut_1999_area_ha + cut_1998_area_ha + cut_1997_area_ha + cut_1996_area_ha + cut_1995_area_ha + cut_1994_area_ha + cut_1993_area_ha + cut_1992_area_ha] 
+poly.sa.habitat [year == 2017, cut_25_year_area_ha := cut_2017_area_ha + cut_2017_area_ha + cut_2015_area_ha + cut_2014_area_ha + cut_2013_area_ha + cut_2012_area_ha + cut_2011_area_ha + cut_2010_area_ha + cut_2009_area_ha + cut_2008_area_ha + cut_2007_area_ha + cut_2006_area_ha + cut_2005_area_ha + cut_2004_area_ha + cut_2003_area_ha + cut_2002_area_ha + cut_2001_area_ha + cut_2000_area_ha + cut_1999_area_ha + cut_1998_area_ha + cut_1997_area_ha + cut_1996_area_ha + cut_1995_area_ha + cut_1994_area_ha + cut_1993_area_ha] 
+poly.sa.habitat [year == 2018, cut_25_year_area_ha := cut_2018_area_ha + cut_2017_area_ha + cut_2017_area_ha + cut_2015_area_ha + cut_2014_area_ha + cut_2013_area_ha + cut_2012_area_ha + cut_2011_area_ha + cut_2010_area_ha + cut_2009_area_ha + cut_2008_area_ha + cut_2007_area_ha + cut_2006_area_ha + cut_2005_area_ha + cut_2004_area_ha + cut_2003_area_ha + cut_2002_area_ha + cut_2001_area_ha + cut_2000_area_ha + cut_1999_area_ha + cut_1998_area_ha + cut_1997_area_ha + cut_1996_area_ha + cut_1995_area_ha + cut_1994_area_ha] 
 
 write.csv (poly.sa.habitat, here ("./data/study_area_habitat.csv"))
 
@@ -535,8 +515,12 @@ data [, prop_cut_15_year_area_ha := cut_15_year_area_ha / area_ha]
 data [, prop_cut_25_year_area_ha := cut_25_year_area_ha / area_ha]
 data [, prop_mpb_m_8_year_area_ha := mpb_m_8_year_area_ha / area_ha]
 data [, prop_mpb_m_15_year_area_ha := mpb_m_15_year_area_ha / area_ha]
-
-
+data [, prop_mpb_s_8_year_area_ha := mpb_s_8_year_area_ha / area_ha]
+data [, prop_mpb_s_15_year_area_ha := mpb_s_15_year_area_ha / area_ha]
+data [, prop_mpb_vs_8_year_area_ha := mpb_vs_8_year_area_ha / area_ha]
+data [, prop_mpb_vs_15_year_area_ha := mpb_vs_15_year_area_ha / area_ha]
+data [, prop_mpb_all_8_year_area_ha := mpb_all_8_year_area_ha / area_ha]
+data [, prop_mpb_all_15_year_area_ha := mpb_all_15_year_area_ha / area_ha]
 
 # get change in values for comapring rates of change
 data [, delta_af_survival_rate_all := af_survival_rate_all - shift (af_survival_rate_all, n = 1, type = "lag"), by = name_sa]
@@ -545,14 +529,26 @@ data [, delta_cut_8_year_area_ha := cut_8_year_area_ha - shift (cut_8_year_area_
 data [, delta_cut_15_year_area_ha := cut_15_year_area_ha - shift (cut_15_year_area_ha, n = 1, type = "lag"), by = name_sa]
 data [, delta_cut_25_year_area_ha := cut_25_year_area_ha - shift (cut_25_year_area_ha, n = 1, type = "lag"), by = name_sa]
 data [, delta_mpb_m_8_year_area_ha := mpb_m_8_year_area_ha - shift (mpb_m_8_year_area_ha, n = 1, type = "lag"), by = name_sa]
+data [, delta_mpb_s_8_year_area_ha := mpb_s_8_year_area_ha - shift (mpb_s_8_year_area_ha, n = 1, type = "lag"), by = name_sa]
+data [, delta_mpb_vs_8_year_area_ha := mpb_vs_8_year_area_ha - shift (mpb_vs_8_year_area_ha, n = 1, type = "lag"), by = name_sa]
+data [, delta_mpb_all_8_year_area_ha := mpb_all_8_year_area_ha - shift (mpb_all_8_year_area_ha, n = 1, type = "lag"), by = name_sa]
+data [, delta_mpb_m_15_year_area_ha := mpb_m_15_year_area_ha - shift (mpb_m_15_year_area_ha, n = 1, type = "lag"), by = name_sa]
+data [, delta_mpb_s_15_year_area_ha := mpb_s_15_year_area_ha - shift (mpb_s_15_year_area_ha, n = 1, type = "lag"), by = name_sa]
+data [, delta_mpb_vs_15_year_area_ha := mpb_vs_15_year_area_ha - shift (mpb_vs_15_year_area_ha, n = 1, type = "lag"), by = name_sa]
 data [, delta_mpb_all_15_year_area_ha := mpb_all_15_year_area_ha - shift (mpb_all_15_year_area_ha, n = 1, type = "lag"), by = name_sa]
+data [, delta_prop_cut_8_year_area_ha := prop_cut_8_year_area_ha - shift (prop_cut_8_year_area_ha, n = 1, type = "lag"), by = name_sa]
+data [, delta_prop_cut_15_year_area_ha := prop_cut_15_year_area_ha - shift (prop_cut_15_year_area_ha, n = 1, type = "lag"), by = name_sa]
+data [, delta_prop_cut_25_year_area_ha := prop_cut_25_year_area_ha - shift (prop_cut_25_year_area_ha, n = 1, type = "lag"), by = name_sa]
+data [, delta_prop_mpb_m_8_year_area_ha := prop_mpb_m_8_year_area_ha - shift (prop_mpb_m_8_year_area_ha, n = 1, type = "lag"), by = name_sa]
+data [, delta_prop_mpb_m_15_year_area_ha := prop_mpb_m_15_year_area_ha - shift (prop_mpb_m_15_year_area_ha, n = 1, type = "lag"), by = name_sa]
+data [, delta_prop_mpb_s_8_year_area_ha := prop_mpb_s_8_year_area_ha - shift (prop_mpb_s_8_year_area_ha, n = 1, type = "lag"), by = name_sa]
+data [, delta_prop_mpb_s_15_year_area_ha := prop_mpb_s_15_year_area_ha - shift (prop_mpb_s_15_year_area_ha, n = 1, type = "lag"), by = name_sa]
+data [, delta_prop_mpb_vs_8_year_area_ha := prop_mpb_vs_8_year_area_ha - shift (prop_mpb_vs_8_year_area_ha, n = 1, type = "lag"), by = name_sa]
+data [, delta_prop_mpb_vs_15_year_area_ha := prop_mpb_vs_15_year_area_ha - shift (prop_mpb_vs_15_year_area_ha, n = 1, type = "lag"), by = name_sa]
+data [, delta_prop_mpb_all_8_year_area_ha := prop_mpb_all_8_year_area_ha - shift (prop_mpb_all_8_year_area_ha, n = 1, type = "lag"), by = name_sa]
+data [, delta_prop_mpb_all_15_year_area_ha := prop_mpb_all_15_year_area_ha - shift (prop_mpb_all_15_year_area_ha, n = 1, type = "lag"), by = name_sa]
 
-
-
-
-
-
-
+data [is.na (data)] <- 0
 
 write.csv (data, here ("./data/data.csv"))
 ```
@@ -561,10 +557,131 @@ write.csv (data, here ("./data/data.csv"))
 ### Descriptive Stats and Visualization
 - look at distribtuion of data 
 
+#### Cutblocks
+- estimated total area of cutblocks less than 8 years old in each study area versus estimated survival rate
+  - negative relationship in Entiako and JPRF
+  - positive in Big Creek and PG South
+  - flat in Bonaparte
+  - defintely no consistent response here
+
+```{r, total area cut <8 years old x survival rate, eval = T, echo = F}
+data <- read.csv (here ("./data/data.csv"))
+ggplot (data, aes (x = (cut_8_year_area_ha*0.01), 
+                   y = af_survival_rate_all)) +
+  geom_point () +
+  geom_smooth (method = lm) +
+  facet_grid (.~name_sa, scales = "free") +
+  labs (title = "Adult Female Moose Survival Rate by Total Area of Cutblocks <8 years old in 
+the Study Area MCPs",
+        x = "Total Area of Cutblocks <8 years old (km2)",
+        y = "Adult Female Moose Survival Rate") 
+```
+
+- what about proportion?
+  - not any better...
+
+```{r, proportion area cut <8 years old x survival rate, eval = T, echo = F}
+data <- read.csv (here ("./data/data.csv"))
+ggplot (data, aes (x = (prop_cut_8_year_area_ha*100), 
+                   y = af_survival_rate_all)) +
+  geom_point () +
+  geom_smooth (method = lm) +
+  facet_grid (.~name_sa, scales = "free") +
+  labs (title = "Adult Female Moose Survival Rate by Percent of Area that is 
+Cutblocks <8 years old in the Study Area MCPs",
+        x = "Percent of Area that is Cutblocks <8 years old",
+        y = "Adult Female Moose Survival Rate") +
+  theme (axis.text.x = element_text (angle = 45))
+```
+
+- if we consider a longer time-frame, 15 years?
+  - nope....
+
+```{r, total area cut <15 years old x survival rate, eval = T, echo = F}
+data <- read.csv (here ("./data/data.csv"))
+ggplot (data, aes (x = (cut_15_year_area_ha*0.01), 
+                   y = af_survival_rate_all)) +
+  geom_point () +
+  geom_smooth (method = lm) +
+  facet_grid (.~name_sa, scales = "free") +
+  labs (title = "Adult Female Moose Survival Rate by Total Area of Cutblocks <8 years old in 
+the Study Area MCPs",
+        x = "Total Area of Cutblocks <15 years old (km2)",
+        y = "Adult Female Moose Survival Rate") +
+  theme (axis.text.x = element_text (angle = 45)) 
+```
+
+- proprotion?
+ - suggests the oppostie effect...
+
+```{r, proportion area cut <15 years old x survival rate, eval = T, echo = F}
+data <- read.csv (here ("./data/data.csv"))
+ggplot (data, aes (x = (prop_cut_15_year_area_ha*100), 
+                   y = af_survival_rate_all)) +
+  geom_point () +
+  geom_smooth (method = lm) +
+  facet_grid (.~name_sa, scales = "free") +
+  labs (title = "Adult Female Moose Survival Rate by Percent of Area that is 
+Cutblocks <15 years old in the Study Area MCPs",
+        x = "Percent of Area that is Cutblocks <15 years old",
+        y = "Adult Female Moose Survival Rate") +
+  theme (axis.text.x = element_text (angle = 45))
+```
+
+
+- consider rate of change over time
+  - again, no clear pattern here
+
+```{r, change in proportion area cut <8 years old x survival rate change, eval = T, echo = F}
+data <- read.csv (here ("./data/data.csv"))
+ggplot (data, aes (x = (delta_prop_cut_8_year_area_ha*100), 
+                   y = delta_af_survival_rate_all)) +
+  geom_point () +
+  geom_smooth (method = lm) +
+  facet_grid (.~name_sa, scales = "free") +
+  labs (title = "Change in Adult Female Moose Survival Rate by Chnage in Percent of Area that 
+is Cutblocks <8 years old in the Study Area MCPs",
+        x = "Change in Percent of Area that is Cutblocks <8 years old",
+        y = "Change in Adult Female Moose Survival Rate") +
+  theme (axis.text.x = element_text (angle = 45))
+```
+
+
+- calves
+
+
+#### MPB
+
+- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ```{r exploratory stats and data vis, echo = T, message = F, warning = F}
 
-ggplot (data, aes (x = pttype, y = slope)) +
-  geom_point()
+
+  
+
+
+
+
+
 
 
 
