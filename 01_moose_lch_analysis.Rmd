@@ -1025,7 +1025,7 @@ Than 8 Years Old in the Study Area MCPs",
 ```
 
 
-```{r, delta area lt 8 years old x delta survival rate, eval = T, echo = F, message = F, warning = F}
+```{r, delta area lt 15 years old x delta survival rate, eval = T, echo = F, message = F, warning = F}
 data <- read.csv (here ("./data/data.csv"))
 levels (data$name_sa) [levels(data$name_sa) == "John Prince Research Forest"] <- "JPRF"
 ggplot (data, aes (x = (delta_mpb_all_15_year_area_ha*0.01) + (delta_cut_15_year_area_ha*0.01), 
@@ -1077,7 +1077,7 @@ Study Area MCPs",
 
 I also found no clear relationship between change in adult female moose survival rate and change cumulative disturbance less than 8 (Fig. 29) or 15 (Fig. 30) years old.
 
-```{r, delta area lt 8 years old x delta survival rate, eval = T, echo = F, message = F, warning = F}
+```{r, delta area lt 8 years old x delta cow/calf, eval = T, echo = F, message = F, warning = F}
 data <- read.csv (here ("./data/data.csv"))
 levels (data$name_sa) [levels(data$name_sa) == "John Prince Research Forest"] <- "JPRF"
 ggplot (data, aes (x = (delta_mpb_all_8_year_area_ha*0.01) + (delta_cut_8_year_area_ha*0.01), 
@@ -1093,7 +1093,7 @@ Than 8 Years Old in the Study Area MCPs",
   theme (axis.text.x = element_text (angle = 45)) 
 ```
 
-```{r, delta area lt 8 years old x delta survival rate, eval = T, echo = F, message = F, warning = F}
+```{r, delta area lt 15 years old x delta cow/calf, eval = T, echo = F, message = F, warning = F}
 data <- read.csv (here ("./data/data.csv"))
 levels (data$name_sa) [levels(data$name_sa) == "John Prince Research Forest"] <- "JPRF"
 ggplot (data, aes (x = (delta_mpb_all_15_year_area_ha*0.01) + (delta_cut_15_year_area_ha*0.01), 
@@ -1110,6 +1110,6 @@ Than 15 Years Old in the Study Area MCPs",
 ```
 
 ## Preliminary Conclusions
-Across the five study areas. there was no clear relationship between landscape disturbance, here defined as cutblocks and MBP distrubed stands, and moose population parameters, i.e., adult female survival and calves/100 cows ratio. The exception may have been the relationship beetween less than 15 year old MPB disturbed stands and change in adult female survival rate (Fig. 16), as this was consistently negative across the five study areas. However, this may have just been a stastical fluke, as I examined the data in a multitude of ways, and there was a likelihood that at least one of these ways would show the realtionship I was looking for. 
+Across the five study areas. there was no clear relationship between landscape disturbance, here defined as cutblocks and MBP distrubed stands, and moose population parameters, i.e., adult female survival and calves/100 cows delta area lt 8 years old x delta survival rate ratio. The exception may have been the relationship beetween less than 15 year old MPB disturbed stands and change in adult female survival rate (Fig. 16), as this was consistently negative across the five study areas. However, this may have just been a stastical fluke, as I examined the data in a multitude of ways, and there was a likelihood that at least one of these ways would show the realtionship I was looking for. 
 
 Using the population parameter data here I cannot reject the null hypothesis of the LCH. However, this does not mean the LCH is not valid, but it is clearly diffcult to test at a 'study area scale' with only five study areas (i.e., n = 5) over a four year period. This justifies the need to implement long-term (i.e., multi-decade) monitoring programs to evaluate the effects of landscape change on wildlife.    
