@@ -2,7 +2,8 @@
 title: "Moose Landcape Change Hypothesis Analysis"
 author: "Tyler Muhly"
 date: "12/12/2019"
-output: html_document:
+output: 
+  html_document:
   keep_md: yes
 ---
 <!--
@@ -37,15 +38,13 @@ Here I summarize data to explore the moose 'landscape change hypothesis' (LCH). 
 The LCH predicts a negative correlative relationship between the amount of landscape disturbance and adult female survival or the ratio of calves to cow moose. This relationship is indicative that processes related to landscape disturbance, i.e., reduced amount of security and thermal cover and increased amount of negative interactions with humans (e.g., hunting mortality) due to higher road densities are causing moose population declines. 
 
 ## Methods
-
 ### Study Areas
-The LCH was tested by sampling moose survival rates in the Big Creek, Bonaparte, Entiako, John Prince Research Forest (JPRF) and Prince George South study areas. These five study areas were selected because they had varied levels of MPB and forestry related disturbance. A sample of moose in each study area were captured annually and collared with global positioning system (GPS) telemetry collars. Annual moose study area boundaries were determined by calculating the 100% minimum convex polygon MCP of annual sampled adult female moose GPS locations in each area. Moose locations were collected for four years from 2015 to 2018 (except Entiako, where data was also collected in 2014), and thus study area boundaries were re-calcualted for each of these years.  
+The LCH was tested by sampling moose survival rates in the Big Creek, Bonaparte, Entiako, John Prince Research Forest (JPRF) and Prince George South study areas. These five study areas were selected because they had varied levels of MPB and forestry disturbance. A sample of moose in each study area were captured annually and collared with global positioning system (GPS) telemetry collars. Annual moose study area boundaries were determined by calculating the 100% minimum convex polygon (MCP) of annual sampled adult female moose GPS locations in each area. Moose locations were collected for four years from 2015 to 2018 (except Entiako, where data was also collected in 2014), and thus study area boundaries were re-calculated for each of these years.  
 
-### Population Data 
-Adult female moose survival rates were estimated from mortality data collected from the sampled animals. Survival was estimated for a biological year, i.e., April to April(?), not a calendar year. Thus, for example, a surival estimate for 2015 was cauclated using mortality data collected from April 2014 to April 2015. In addition, aerial cow/calf composition surveys were completed annually in each study area in ????.
+### Population Data
+Adult female moose survival rates were estimated annually from mortality data collected from the sampled animals. Survival was estimated for a biological year, i.e., April to April(?), not a calendar year. Thus, for example, a survival estimate for 2015 was caculated using mortality data collected from April 2014 to April 2015. In addition, aerial cow/calf composition surveys were completed annually in each study area in ????.
 
-```{r, management unit spatial data, eval = F, echo = F, message = F, warning = F}
-
+```{r, management unit spatial data, eval = F, echo = F, message = F, warning = F, include = F}
 # load the mcp's
 poly.sa.bc.14.15 <- st_transform (st_read (dsn = here ( "./data/mcp/PGS_JPRF_BigCreek_MCPs.gdb/PGS_JPRF_BigCreek_MCPs.gdb"),
                          layer = "BigCreek_2014_15_MCP"), 
@@ -185,10 +184,10 @@ st_write (poly.sa,
           driver = "ESRI Shapefile")
 ```
 
-### Measuring Area of Cutblocks in Study Areas
-I estimated the area of less than 8 and 15 year old forestry cutblocks and MPB disturbed stands in each study area. I estimated the area of cutblocks using the [consolidated cutblocks](https://catalogue.data.gov.bc.ca/dataset/harvested-areas-of-bc-consolidated-cutblocks-) dataset for BC. I intersected this data with the study area boundaries and then summarized the area cut by year from 1970 to 2018. I then calculated the area of cutblocks less than 8 and 15 years old for each study area year to align with adult female moose survival estimates for that year. For example, for survival estimates calculated for year 2015, I calcualted the area cut form 2008 to 2015 as an estimaet dof area cut less than 8 years old. Thus, the assumption was the majpority of area was cut in early in the calendar year, during the period which survival estimates were calculated. 
+### Estimating Area of Cutblocks in Study Areas
+I estimated the area of less than 8 and less than 15 year old forestry cutblocks and MPB disturbed stands in each study area. I estimated the area of cutblocks using the [consolidated cutblocks](https://catalogue.data.gov.bc.ca/dataset/harvested-areas-of-bc-consolidated-cutblocks-) dataset for BC. I intersected this data with the study area boundaries and then summarized the area cut by year from 1970 to 2018. I then calculated the area of cutblocks less than 8 and 15 years old for each study area year to align with adult female moose survival estimates for that year. For example, for survival estimates calculated for year 2015, I calculated the area cut from 2008 to 2015 as an estimate of area cut less than 8 years old. Thus, the assumption was the majority of area was cut early in a calendar year, during the period which survival estimates were calculated. 
 
-```{r, cutblock data download and attribute to study areas, eveal = F, echo = T, message = F, warning = F}
+```{r, cutblock data download and attribute to study areas, eval = F, echo = T, message = F, warning = F, include = F}
 
 # library (bcdata) # use this to conenct to bcgw via R
 # cutblocks <- bcdc_get_data ('b1b647a6-f271-42e0-9cd0-89ec24bce9f7', resource = '66656966-8af6-4e32-8de1-b79c63cae40f') # name of the data in BCGW; I noticed there are 413451 rows form here, whereas 446,987 in the BCGW; not sure why they are different, but this version likely underestimates the area of cutblocks; so I used the BCGW data and imported it here...
@@ -263,10 +262,10 @@ rm (cutblocks, table.sa.cutblocks, table.sa.cutblocks.mum, sa.cutblocks)
 gc ()
 ```
 
-### Measuring Area of Mountain Pine Beetle Disturbed Stands in Study Areas
-I estimated the area of forest stands disturbed by mountain pine beetle in each study area using data collected from [annual aerial surveys](https://www2.gov.bc.ca/gov/content/industry/forestry/managing-our-forest-resources/forest-health/aerial-overview-surveys/methods) by the government of BC. These data were accessible through an [FTP site](https://www.for.gov.bc.ca/ftp/HFP/external/!publish/Aerial_Overview/), and I downloaded annual datsets from 1999 to 2018.  I summarized the area of moderately (11 to 29%), severely (30 to 49%) and very severely (>50%) disturbed forest stands for each year. I then calculated the area of MPB disturbed stands less than 8 and 15 years old for each study area year to align with adult female moose survival estimates for that year. MPB surveys are completed in July-August, thus, for example, for survival estimates calculated for year 2015, I calcualted the area of MPB disturbed stands from 2008 to 2015 as an estimate of area of MPB stands less than 8 years old. 
+### Estimating Area of Mountain Pine Beetle Disturbed Stands in Study Areas
+I estimated the area of forest stands disturbed by mountain pine beetle in each study area using data collected from [annual aerial surveys](https://www2.gov.bc.ca/gov/content/industry/forestry/managing-our-forest-resources/forest-health/aerial-overview-surveys/methods) by the government of BC. These data were accessible through an [FTP site](https://www.for.gov.bc.ca/ftp/HFP/external/!publish/Aerial_Overview/), and I downloaded annual datasets from 1999 to 2018.  I summarized the area of moderately (11 to 29%), severely (30 to 49%) and very severely (>50%) disturbed forest stands for each year. Estimates cannot be added cumulatively each year, as damage to stands measured in previous years may be updated with new data from subsequent years. Thus I ensured that spatially overlapping stands were updated using ArcGIS. I then calculated the area of MPB disturbed stands less than 8 and less than 15 years old for each study area year to align with adult female moose survival estimates for that year. MPB surveys were typically completed in July-August, thus, for example, for survival estimates calculated for year 2015, I calculated the area of MPB disturbed stands from 2008 to 2015 as an estimate of area of MPB stands less than 8 years old. 
 
-```{r, forest health data download and attribute beetle disturbance to study areas, echo = T, message = F, warning = F, eval = F}
+```{r, forest health data download and attribute beetle disturbance to study areas, echo = T, message = F, warning = F, eval = F, include = F}
 
 # Download data; this is an example; do these for each year and save it locally
 download ("https://www.for.gov.bc.ca/ftp/HFP/external/!publish/Aerial_Overview/1999/shape/Prov_Shape.zip", 
@@ -462,12 +461,11 @@ write.csv (poly.sa.habitat.sum, here ("./data/study_area_habitat_sum.csv"))
 ```
 
 ### Estimating Population Parameters
-
-- estimated survival from mortality data... just using data provided in report so far; not divided into type (human, etc.)
-- dependent variables are:
-    - annual female survival rate; human and all mortality types
-    - change in annual survival rate; human and all mortality types?
-    - calves/100 cows and chaneg in calves/100 cows 
+- currently using data provided in annual report; not divided into type (human, etc.)
+- dependent variables are currently:
+    - annual adult female survival rate; all mortality types
+    - change in adult annual survival rate; all mortality types
+    - calves/100 cows and change in calves/100 cows (indicator of recruitment)
 
 ```{r population params table, echo = F, message = F, warning = F, eval = T}
 table.pop.data = data.table(
@@ -505,7 +503,7 @@ kable (table.pop.data,
                  font_size = 11) 
 ```
 
-```{r, link pop params to habitat covariates, echo = F, message = F, warning = F, eval = F}
+```{r, link pop params to habitat covariates, echo = F, message = F, warning = F, eval = F, include = F}
 
 # link pop table to habitat table
 setkey (table.pop.data, unique_id)
@@ -556,8 +554,8 @@ data [is.na (data)] <- 0
 write.csv (data, here ("./data/data.csv"))
 ```
 
-## Results
-Here I provide a preliminary description of the relationship between landscape disturbance and estimates of moose adult female survival or calves/100 cows. Entiako was typically the largest study area, at approximately 1,000,000 ha, and Bonaparte was typically the smallest study area, at approximately 300,000 ha (Table 2). The JPRF study area had the highest amount of less than 8 year old cutblocks, and Prince George South had the highest amount of less than 15 year old cutblocks. The Big Creek study area typically had the most less than 8 year old MPB disturbed forest stands and ince George South had the highest amount of less than 15 year MPB disturbed forest stands.
+## Preliminary Results
+Here I provide a preliminary description of the relationship between landscape disturbance and estimates of moose adult female survival or calves/100 cows. Entiako was typically the largest study area, at approximately 1,000,000 ha, and Bonaparte was typically the smallest study area, at approximately 300,000 ha (Table 2). The JPRF study area had typically the highest amount of less than 8 year old cutblocks, and Prince George South had the highest amount of less than 15 year old cutblocks. The Big Creek study area typically had the most less than 8 year old MPB disturbed forest stands and Prince George South had the highest amount of less than 15 year MPB disturbed forest stands.
 
 ```{r, table of disturbance by study area, eval = T, echo = F, message = F, warning = F}
 data <- read.csv (here ("./data/data.csv"))
@@ -591,10 +589,42 @@ kable (data.disturb.summary,
                  font_size = 11) 
 ```
 
-### Relationship Between Cutblocks and Adult Female Survival
-There was no clear relationship between the amount of less than 8 year old cutblocks and adult female moose survival rates across the five study areas (Fig. 1). There was a negative relationship in the Entiako and JPRF study areas, a positive relationship in the Big Creek and Prince George South study areas and no relationship in the Bonaparte study area. 
+Trends in adult female moose survival rates varied across the study areas from 2015 to 2018 (Fig. 1). Survival was increasing in the Bonaparte, Entiako adn JPRF study areas, and decreasing in the Big Creek and Prince George South study areas. 
 
-```{r, total area cut <8 years old x survival rate, eval = T, echo = F}
+```{r, trend in survival over time, eval = T, echo = F, message = F, warning = F}
+data <- read.csv (here ("./data/data.csv"))
+levels (data$name_sa) [levels(data$name_sa) == "John Prince Research Forest"] <- "JPRF"
+ggplot (data, aes (x = year, 
+                   y = af_survival_rate_all)) +
+  geom_point () +
+  geom_smooth (method = lm) +
+  facet_grid (.~name_sa, scales = "free") +
+  labs (title = "Figure 1. Trend in Adult Female Moose Survival Rate by Study Area Over Time",
+        x = "Year",
+        y = "Adult Female Moose Survival Rate") +
+  theme (axis.text.x = element_text (angle = 45))
+```
+
+Trends in calf/100 cow ratios varied across the study areas from 2015 to 2018 (Fig. 2). Calf/100 cow ratios were increasing in the Bonaparte study area, decreasing in the Entiako, JPRF and Prince Goerge SOtuh study areas, and flat in the Big Creek study area. 
+
+```{r, trend in calf/cow over time, eval = T, echo = F, message = F, warning = F}
+data <- read.csv (here ("./data/data.csv"))
+levels (data$name_sa) [levels(data$name_sa) == "John Prince Research Forest"] <- "JPRF"
+ggplot (data, aes (x = year, 
+                   y = calves_100cows)) +
+  geom_point () +
+  geom_smooth (method = lm) +
+  facet_grid (.~name_sa, scales = "free") +
+  labs (title = "Figure 2. Trend in Calf/100 Cow Ratios by Study Area Over Time",
+        x = "Year",
+        y = "Calf/100 Cow Ratio") +
+  theme (axis.text.x = element_text (angle = 45))
+```
+
+### Relationship Between Cutblocks and Adult Female Survival
+There was no clear relationship between the amount of less than 8 year old cutblocks and adult female moose survival rates across the five study areas (Fig. 3). There was a negative relationship in the Entiako and JPRF study areas, a positive relationship in the Big Creek and Prince George South study areas and no relationship in the Bonaparte study area. 
+
+```{r, area cut lt 8 yo x survival rate, eval = T, echo = F, message = F, warning = F}
 data <- read.csv (here ("./data/data.csv"))
 levels (data$name_sa) [levels(data$name_sa) == "John Prince Research Forest"] <- "JPRF"
 ggplot (data, aes (x = (cut_8_year_area_ha*0.01), 
@@ -602,15 +632,15 @@ ggplot (data, aes (x = (cut_8_year_area_ha*0.01),
   geom_point () +
   geom_smooth (method = lm) +
   facet_grid (.~name_sa, scales = "free") +
-  labs (title = "Figure 1. Adult Female Moose Survival Rate by Total Area of Cutblocks Less Than 8 years 
+  labs (title = "Figure 3. Adult Female Moose Survival Rate by Total Area of Cutblocks Less Than 8 years 
 old in the Study Area MCPs",
         x = "Total Area of Cutblocks Less Than 8 years old (km2)",
         y = "Adult Female Moose Survival Rate") 
 ```
 
-Similarly, there was no clear relationship between the percent area less than 8 year old cutblocks and adult female moose survival rates across the five study areas (Fig. 2). There was a negative relationship in the Bonaparte and Entiako study areas, and a positive relationship in the Big Creek, JPRF and Prince George South study areas. 
+Similarly, there was no clear relationship between the percent area less than 8 year old cutblocks and adult female moose survival rates across the five study areas (Fig. 4). There was a negative relationship in the Bonaparte and Entiako study areas, and a positive relationship in the Big Creek, JPRF and Prince George South study areas. 
 
-```{r, proportion area cut <8 years old x survival rate, eval = T, echo = F}
+```{r, perc area cut lt 8 years old x survival rate, eval = T, echo = F, message = F, warning = F}
 data <- read.csv (here ("./data/data.csv"))
 levels (data$name_sa) [levels(data$name_sa) == "John Prince Research Forest"] <- "JPRF"
 ggplot (data, aes (x = (prop_cut_8_year_area_ha*100), 
@@ -618,16 +648,16 @@ ggplot (data, aes (x = (prop_cut_8_year_area_ha*100),
   geom_point () +
   geom_smooth (method = lm) +
   facet_grid (.~name_sa, scales = "free") +
-  labs (title = "Figure 2. Adult Female Moose Survival Rate by Percent of Area that is 
+  labs (title = "Figure 4. Adult Female Moose Survival Rate by Percent of Area that is 
 Cutblocks Less Than 8 years old in the Study Area MCPs",
         x = "Percent of Area that is Cutblocks Less Than 8 years old",
         y = "Adult Female Moose Survival Rate") +
   theme (axis.text.x = element_text (angle = 45))
 ```
 
-When considering the realtionship between rate of change in 8 year old cutblocks and adult female moose survival rates across the five study areas, there was no clear realtionship across the five study areas (Fig. 3). There was a negative relationship in the Bonaparte and Entiako study areas, and a positive relationship in the Big Creek, JPRF and Prince George South study areas. 
+When considering the relationship between annual change in 8 year old cutblocks and annual change in adult female moose survival rates, there was no clear relationship across the five study areas (Fig. 5). There was a negative relationship in the Bonaparte and Entiako study areas, and a positive relationship in the Big Creek, JPRF and Prince George South study areas. 
 
-```{r, change in proportion area cut <8 years old x survival rate change, eval = T, echo = F}
+```{r, delta perc area cut lt 8 years old x delta survival rate, eval = T, echo = F, message = F, warning = F}
 data <- read.csv (here ("./data/data.csv"))
 levels (data$name_sa) [levels(data$name_sa) == "John Prince Research Forest"] <- "JPRF"
 ggplot (data, aes (x = (delta_prop_cut_8_year_area_ha*100), 
@@ -635,16 +665,16 @@ ggplot (data, aes (x = (delta_prop_cut_8_year_area_ha*100),
   geom_point () +
   geom_smooth (method = lm) +
   facet_grid (.~name_sa, scales = "free") +
-  labs (title = "Figure 3. Change in Adult Female Moose Survival Rate by Change in Percent 
+  labs (title = "Figure 5. Change in Adult Female Moose Survival Rate by Change in Percent 
 of Area that is Cutblocks Less Than 8 years old in the Study Area MCPs",
         x = "Change in Percent of Area that is Cutblocks Less Than 8 years old",
         y = "Change in Adult Female Moose Survival Rate") +
   theme (axis.text.x = element_text (angle = 45))
 ```
 
-There was no clear relationship between the area of less than 15 year old cutblocks and adult female moose survival rates across the five study areas (Fig. 4). There was a negative relationship in the JPRF study area, a positive relationship in the Bonaparte and Entiako study areas and no relationship in the Big Creek and Prince George South study areas.
+There was no clear relationship between the area of less than 15 year old cutblocks and adult female moose survival rates across the five study areas (Fig. 6). There was a negative relationship in the JPRF study area, a positive relationship in the Bonaparte and Entiako study areas and no relationship in the Big Creek and Prince George South study areas.
 
-```{r, total area cut <15 years old x survival rate, eval = T, echo = F}
+```{r, area cut lt 15 years old x survival rate, eval = T, echo = F, message = F, warning = F}
 data <- read.csv (here ("./data/data.csv"))
 levels (data$name_sa) [levels(data$name_sa) == "John Prince Research Forest"] <- "JPRF"
 ggplot (data, aes (x = (cut_15_year_area_ha*0.01), 
@@ -652,16 +682,16 @@ ggplot (data, aes (x = (cut_15_year_area_ha*0.01),
   geom_point () +
   geom_smooth (method = lm) +
   facet_grid (.~name_sa, scales = "free") +
-  labs (title = "Figure 4. Adult Female Moose Survival Rate by Total Area of Cutblocks <15 
+  labs (title = "Figure 6. Adult Female Moose Survival Rate by Total Area of Cutblocks <15 
 years old in the Study Area MCPs",
         x = "Total Area of Cutblocks <15 years old (km2)",
         y = "Adult Female Moose Survival Rate") +
   theme (axis.text.x = element_text (angle = 45)) 
 ```
 
-There was generally a positive relationship between the percent area less than 15 year old cutblocks and adult female moose survival rates across the five study areas (Fig. 5). This did not support the hypothesis that more forestry disturbance increased mrotality risk for moose.  
+There was generally a positive relationship between the percent area less than 15 year old cutblocks and adult female moose survival rates across the five study areas (Fig. 7). This did not support the hypothesis that more forestry disturbance increased mrotality risk for moose.  
 
-```{r, proportion area cut <15 years old x survival rate, eval = T, echo = F}
+```{r, perc cut lt 15 years old x survival rate, eval = T, echo = F, message = F, warning = F}
 data <- read.csv (here ("./data/data.csv"))
 levels (data$name_sa) [levels(data$name_sa) == "John Prince Research Forest"] <- "JPRF"
 ggplot (data, aes (x = (prop_cut_15_year_area_ha*100), 
@@ -669,16 +699,16 @@ ggplot (data, aes (x = (prop_cut_15_year_area_ha*100),
   geom_point () +
   geom_smooth (method = lm) +
   facet_grid (.~name_sa, scales = "free") +
-  labs (title = "Figure 5. Adult Female Moose Survival Rate by Percent of Area that is 
+  labs (title = "Figure 7. Adult Female Moose Survival Rate by Percent of Area that is 
 Cutblocks <15 years old in the Study Area MCPs",
         x = "Percent of Area that is Cutblocks <15 years old",
         y = "Adult Female Moose Survival Rate") +
   theme (axis.text.x = element_text (angle = 45))
 ```
 
-There was also generally a positive relationship between the rate of change in area of cutblocks less than 15 years old change in adult female moose survival rates across the five study areas (Fig. 6). This did not support the hypothesis that more forestry disturbance increased mrotality risk for moose. 
+There was also generally a positive relationship between the rate of change in area of cutblocks less than 15 years old and change in adult female moose survival rates across the five study areas (Fig. 8). This did not support the hypothesis that more forestry disturbance increased mrotality risk for moose. 
 
-```{r, change in proportion area cut <15 years old x survival rate change, eval = T, echo = F}
+```{r, delta perc area cut lt 15 years old x survival rate, eval = T, echo = F, message = F, warning = F}
 data <- read.csv (here ("./data/data.csv"))
 levels (data$name_sa) [levels(data$name_sa) == "John Prince Research Forest"] <- "JPRF"
 ggplot (data, aes (x = (delta_prop_cut_15_year_area_ha*100), 
@@ -686,7 +716,7 @@ ggplot (data, aes (x = (delta_prop_cut_15_year_area_ha*100),
   geom_point () +
   geom_smooth (method = lm) +
   facet_grid (.~name_sa, scales = "free") +
-  labs (title = "Figure 6. Change in Adult Female Moose Survival Rate by Change in Percent of 
+  labs (title = "Figure 8. Change in Adult Female Moose Survival Rate by Change in Percent of 
 Area that is Cutblocks <15 years old in the Study Area MCPs",
         x = "Change in Percent of Area that is Cutblocks <15 years old",
         y = "Change in Adult Female Moose Survival Rate") +
@@ -694,9 +724,9 @@ Area that is Cutblocks <15 years old in the Study Area MCPs",
 ```
 
 ### Relationship Between Cutblocks and Calf/Cow Ratios
-There was no clear relationship between the area of less than 8 year old cutblocks and calf/cow ratios across the five study areas (Fig. 7). There was a positive relationship in the Entiako and JPRF study areas and no relationship in the Big Creek, Bonaparte and Prince George South study areas.
+There was no clear relationship between the area of less than 8 year old cutblocks and calf/cow ratios across the five study areas (Fig. 9). There was a positive relationship in the Entiako and JPRF study areas and no relationship in the Big Creek, Bonaparte and Prince George South study areas.
 
-```{r, total area cut <8 years old x calves/100 cows, eval = T, echo = F}
+```{r, area cut lt 8 years old x cow/calf, eval = T, echo = F, message = F, warning = F}
 data <- read.csv (here ("./data/data.csv"))
 levels (data$name_sa) [levels(data$name_sa) == "John Prince Research Forest"] <- "JPRF"
 ggplot (data, aes (x = (cut_8_year_area_ha*0.01), 
@@ -704,15 +734,15 @@ ggplot (data, aes (x = (cut_8_year_area_ha*0.01),
   geom_point () +
   geom_smooth (method = lm) +
   facet_grid (.~name_sa, scales = "free") +
-  labs (title = "Figure 7. Moose Calves/100 Cows Ratio by Total Area of Cutblocks 
+  labs (title = "Figure 9. Moose Calves/100 Cows Ratio by Total Area of Cutblocks 
 less than 8 years old in the Study Area MCPs",
         x = "Total Area of Cutblocks Less Than 8 years old (km2)",
         y = "Calves/100 Cows") 
 ```
 
-Similarly, there was no clear relationship between the change in percent area of less than 8 year old cutblocks and change in calf/cow ratios across the five study areas (Fig. 8). There was a positive relationship in the Big Creek, Entiako and Prince George South  study areas and no relationship in the Bonaparte and JPRF study areas.
+Similarly, there was no clear relationship between the change in percent area of less than 8 year old cutblocks and change in calf/cow ratios across the five study areas (Fig. 10). There was a positive relationship in the Big Creek, Entiako and Prince George South study areas and no relationship in the Bonaparte and JPRF study areas.
 
-```{r, change in proportion area cut <8 years old x cow/calf rate change, eval = T, echo = F}
+```{r, delta perc area cut lt 8 years old x delta cow/calf, eval = T, echo = F, message = F, warning = F}
 data <- read.csv (here ("./data/data.csv"))
 levels (data$name_sa) [levels(data$name_sa) == "John Prince Research Forest"] <- "JPRF"
 ggplot (data, aes (x = (delta_prop_cut_8_year_area_ha*100), 
@@ -720,16 +750,16 @@ ggplot (data, aes (x = (delta_prop_cut_8_year_area_ha*100),
   geom_point () +
   geom_smooth (method = lm) +
   facet_grid (.~name_sa, scales = "free") +
-  labs (title = "Figure 8. Change in Moose Calf/100 Cows Ratio by Change in Percent of Area 
+  labs (title = "Figure 10. Change in Moose Calf/100 Cows Ratio by Change in Percent of Area 
 that is Cutblocks Less Than 8 years old in the Study Area MCPs",
         x = "Change in Percent of Area that is Cutblocks Less Than 8 years old",
         y = "Change in Moose Calf/100 Cows Ratio") +
   theme (axis.text.x = element_text (angle = 45))
 ```
 
-There was no clear relationship between the area of less than 15 year old cutblocks and calf/cow ratios across the five study areas (Fig. 9). There was a negative relationship in the Big Creek, Entiako and Prince George South study areas and a positive relationship in the Bonaparte and JPRF study areas.
+There was no clear relationship between the area of less than 15 year old cutblocks and calf/cow ratios across the five study areas (Fig. 11). There was a negative relationship in the Big Creek, Entiako and Prince George South study areas and a positive relationship in the Bonaparte and JPRF study areas.
 
-```{r, total area cut <15 years old x calves/100 cows, eval = T, echo = F}
+```{r, area cut lt 15 years old x cow/calf, eval = T, echo = F, message = F, warning = F}
 data <- read.csv (here ("./data/data.csv"))
 levels (data$name_sa) [levels(data$name_sa) == "John Prince Research Forest"] <- "JPRF"
 ggplot (data, aes (x = (cut_15_year_area_ha*0.01), 
@@ -737,15 +767,15 @@ ggplot (data, aes (x = (cut_15_year_area_ha*0.01),
   geom_point () +
   geom_smooth (method = lm) +
   facet_grid (.~name_sa, scales = "free") +
-  labs (title = "Figure 9. Moose Calf/100 Cows Ratio by Total Area of Cutblocks Less Than 15 
+  labs (title = "Figure 11. Moose Calf/100 Cows Ratio by Total Area of Cutblocks Less Than 15 
 years old in the Study Area MCPs",
         x = "Total Area of Cutblocks Less Than 15 years old (km2)",
         y = "Calves/100 Cows") 
 ```
 
-Similarly, there was no clear relationship between the change in percent area of less than 15 year old cutblocks and change in calf/cow ratios across the five study areas (Fig. 10). There was a negative relationship in the JPRF study area, a positive relationship in the Bonaparte and Prince George South study areas and no relationsip in the Big Creek and Entiako study areas. 
+Similarly, there was no clear relationship between the change in percent area of less than 15 year old cutblocks and change in calf/cow ratios across the five study areas (Fig. 12). There was a negative relationship in the JPRF study area, a positive relationship in the Bonaparte and Prince George South study areas and no relationsip in the Big Creek and Entiako study areas. 
 
-```{r, change in proportion area cut <15 years old x cow/calf rate change, eval = T, echo = F}
+```{r, delta perc area cut lt 15 years old x delta cow/calf, eval = T, echo = F, message = F, warning = F}
 data <- read.csv (here ("./data/data.csv"))
 levels (data$name_sa) [levels(data$name_sa) == "John Prince Research Forest"] <- "JPRF"
 ggplot (data, aes (x = (delta_prop_cut_15_year_area_ha*100), 
@@ -753,81 +783,97 @@ ggplot (data, aes (x = (delta_prop_cut_15_year_area_ha*100),
   geom_point () +
   geom_smooth (method = lm) +
   facet_grid (.~name_sa, scales = "free") +
-  labs (title = "Figure 10. Change in Moose Calf/100 Cows Ratio by Change in Percent of Area 
+  labs (title = "Figure 12. Change in Moose Calf/100 Cows Ratio by Change in Percent of Area 
 that is Cutblocks <15 years old in the Study Area MCPs",
         x = "Change in Percent of Area that is Cutblocks <15 years old",
         y = "Change in Moose Calf/100 Cows Ratio") +
   theme (axis.text.x = element_text (angle = 45))
 ```
 
-In general, there was no clear relationship between forest cutblock disturbance and moose population parameters in the five study areas over time. If antyhing, these prelimanry resutls indicate an overall positive relationship between forestry cutblocks and moose survival, although this realtionship was not clear enough across study areas to suggest we woudl reject the null hypothesis with a statistical analysis. 
+In general, there was no clear relationship between forest cutblock disturbance and moose population parameters in the five study areas over time. If anything, these preliminary results indicate an overall positive relationship between forestry cutblocks and moose survival, although this realtionship was not clear enough across parameters and study areas. 
 
-### Relationship Between Moutnain Pine Beetle Disturbance and Adult Female Survival
+### Relationship Between Mountain Pine Beetle Disturbance and Adult Female Survival
+There was no clear relationship between the area of less than 8 year old MPB disturbed stands and adult female moose survival rates across the five study areas (Fig. 13). There was a positive relationship in the Entiako and JPRF study areas and no relationship in the Big Creek, Bonaparte and Prince George South study areas.
 
-
-- disturabed stands <8 years ago and survival rate
-  - no clear relationship
-  - Entiako and Bonaparte is neagtive realtionship, but others positive or flat
-
-```{r, total  MPB disturbed stands <8 years old x survival rate, eval = T, echo = F}
+```{r, MPB lt 8 years old x survival rate, eval = T, echo = F, message = F, warning = F}
 data <- read.csv (here ("./data/data.csv"))
+levels (data$name_sa) [levels(data$name_sa) == "John Prince Research Forest"] <- "JPRF"
 ggplot (data, aes (x = (mpb_all_8_year_area_ha*0.01), 
                    y = af_survival_rate_all)) +
   geom_point () +
   geom_smooth (method = lm) +
   facet_grid (.~name_sa, scales = "free") +
-  labs (title = "Adult Female Moose Survival Rate by Total Area of Mountain Pine Beetle (MPB)
-Disturbed Stands in the Study Area MCPs",
-        x = "Total Area of MPB Disturbed Stands <8 years old (km2)",
+  labs (title = "Figure 13. Adult Female Moose Survival Rate by Total Area of Mountain 
+Pine Beetle (MPB) Disturbed Stands in the Study Area MCPs",
+        x = "Total Area of MPB Disturbed Stands Less Than 8 years old (km2)",
         y = "Adult Female Moose Survival Rate") 
 ```
 
-- what about proportion?
-  - no clear pattern here either
+Similarly, there was no clear relationship between the percent area of less than 8 year old MPB disturbed stands and adult female moose survival rates across the five study areas (Fig. 14). There was a negative relationship in the Entiako and JPRF study areas, and no relationship in the Big Creek, Bonaparte and Prince George South study areas.
 
-```{r, proportion area mpb <8 years old x survival rate, eval = T, echo = F}
+```{r, perc mpb lt 8 years old x survival rate, eval = T, echo = F, message = F, warning = F}
 data <- read.csv (here ("./data/data.csv"))
+levels (data$name_sa) [levels(data$name_sa) == "John Prince Research Forest"] <- "JPRF"
 ggplot (data, aes (x = (prop_mpb_all_8_year_area_ha*100), 
                    y = af_survival_rate_all)) +
   geom_point () +
   geom_smooth (method = lm) +
   facet_grid (.~name_sa, scales = "free") +
-  labs (title = "Adult Female Moose Survival Rate by Percent of Area that is 
-Cutblocks <8 years old in the Study Area MCPs",
-        x = "Percent of Area that is MPB Disturbed Stands <8 years old",
+  labs (title = "Figure 14. Adult Female Moose Survival Rate by Percent of Area that is 
+Mountain Pine Beetle (MPB) Disturbed Stands Less Than 8 years old in the 
+Study Area MCPs",
+        x = "Percent of Area that is MPB Disturbed Stands Less Than 8 years old",
         y = "Adult Female Moose Survival Rate") +
   theme (axis.text.x = element_text (angle = 45))
 ```
 
-- if we consider a longer time-frame, 15 years
-  - a bit more consistent here; lower survival in areas with more disturbance 
+There was no clear relationship between the change in percent area of less than 8 year old MPB disturbed stands and change in adult female moose survival rates across the five study areas (Fig. 15). There was a positive relationship in the Bonaparte study area, a negative relationship in Big Creek, Entiako and JPRF study areas and no relationship in the Prince George South study area.
 
-```{r, total area mpb <15 years old x survival rate, eval = T, echo = F}
+```{r, delta perc mpb lt 8 years old x delta survival rate, eval = T, echo = F, message = F, warning = F}
 data <- read.csv (here ("./data/data.csv"))
+levels (data$name_sa) [levels(data$name_sa) == "John Prince Research Forest"] <- "JPRF"
+ggplot (data, aes (x = (delta_prop_mpb_all_8_year_area_ha*100), 
+                   y = delta_af_survival_rate_all)) +
+  geom_point () +
+  geom_smooth (method = lm) +
+  facet_grid (.~name_sa, scales = "free") +
+  labs (title = "Figure 15. Change in Adult Female Moose Survival Rate by Change in Percent 
+of Area that is Mountain Pine Beetle (MPB) Disturbed Stands Less Than 8 years 
+old in the Study Area MCPs",
+        x = "Change in Percent of Area that is Mountain Pine Beetle (MPB) Disturbed Stands 
+Less Than 8 years old",
+        y = "Change in Adult Female Moose Survival Rate") +
+  theme (axis.text.x = element_text (angle = 45))
+```
+
+There was generally a consistent, but weak negative relationship between the area of less than 15 year old MPB disturbed stands and adult female moose survival rates across the five study areas (Fig. 16). Adult female moose survival rates were lower in most study areas during periods when there was more area of less than 15 year old MPB disturbed stands. However, this relationship was not clear in the Prince George South study area.
+
+```{r, area mpb lt 15 years old x survival rate, eval = T, echo = F, message = F, warning = F}
+data <- read.csv (here ("./data/data.csv"))
+levels (data$name_sa) [levels(data$name_sa) == "John Prince Research Forest"] <- "JPRF"
 ggplot (data, aes (x = (mpb_all_15_year_area_ha*0.01), 
                    y = af_survival_rate_all)) +
   geom_point () +
   geom_smooth (method = lm) +
   facet_grid (.~name_sa, scales = "free") +
-  labs (title = "Adult Female Moose Survival Rate by Total Area of Mountain Pine Beetle (MPB)
-Disturbed Stands in the Study Area MCPs",
-        x = "Total Area of MPB Disturbed Stands <15 years old (km2)",
+  labs (title = "Figure 16. Adult Female Moose Survival Rate by Total Area of Mountain Pine 
+Beetle (MPB) Disturbed Stands Less Than 15 Years Old in the Study Area MCPs",
+        x = "Total Area of MPB Disturbed Stands Less Than 15 Years Old (km2)",
         y = "Adult Female Moose Survival Rate") +
   theme (axis.text.x = element_text (angle = 45)) 
 ```
 
-- proprotion?
- - pretty flat, maybe a weak effect, but not consistent when you consider overall disturabnce across 
-   study areas
+There was no clear relationship between the percent area of less than 15 year old MPB disturbed stands and change in adult female moose survival rates across the five study areas (Fig. 17). There was a negative relationship in the Bonaparte and JPRF study areas and no relationship in the other study areas.
 
-```{r, proportion mpb <15 years old x survival rate, eval = T, echo = F}
+```{r, perc mpb lt 15 years old x survival rate, eval = T, echo = F, message = F, warning = F}
 data <- read.csv (here ("./data/data.csv"))
+levels (data$name_sa) [levels(data$name_sa) == "John Prince Research Forest"] <- "JPRF"
 ggplot (data, aes (x = (prop_mpb_all_15_year_area_ha*100), 
                    y = af_survival_rate_all)) +
   geom_point () +
   geom_smooth (method = lm) +
   facet_grid (.~name_sa, scales = "free") +
-  labs (title = "Adult Female Moose Survival Rate by Percent of Area that is 
+  labs (title = "Figure 17. Adult Female Moose Survival Rate by Percent of Area that is 
 Mountain Pine Beetle (MPB) Disturbed Stands <15 years old in the 
 Study Area MCPs",
         x = "Percent of Area of MPB Disturbed Stands <15 years old",
@@ -835,188 +881,235 @@ Study Area MCPs",
   theme (axis.text.x = element_text (angle = 45))
 ```
 
-- consider rate of change over time
-  - no clear pattern here
+There was a consistent negative relationship between the change in percent area of less than 15 year old MPB disturbed stands and change in adult female moose survival rates across the five study areas (Fig. 18). As the area of less than 15 year old MPB disturbed stands increased, survival rate decreased.
 
-```{r, change in proportion mpb <8 years old x survival rate change, eval = T, echo = F}
+```{r, delta perc area mpb lt 15 years old x delta survival rate, eval = T, echo = F, message = F, warning = F}
 data <- read.csv (here ("./data/data.csv"))
-ggplot (data, aes (x = (delta_prop_mpb_all_8_year_area_ha*100), 
-                   y = delta_af_survival_rate_all)) +
-  geom_point () +
-  geom_smooth (method = lm) +
-  facet_grid (.~name_sa, scales = "free") +
-  labs (title = "Change in Adult Female Moose Survival Rate by Change in Percent of Area that 
-is Mountain Pine Beetle (MPB) Disturbed Stands <8 years old in the 
-Study Area MCPs",
-        x = "Change in Percent of Area that is Mountain Pine Beetle (MPB) Disturbed Stands <8 years old",
-        y = "Change in Adult Female Moose Survival Rate") +
-  theme (axis.text.x = element_text (angle = 45))
-```
-
-- if we look over a 15 year period.... 
-  - here we have the strongest indicator
-  - consistent negative relationship 
-
-```{r, change in proportion area mpb <15 years old x survival rate change, eval = T, echo = F}
-data <- read.csv (here ("./data/data.csv"))
+levels (data$name_sa) [levels(data$name_sa) == "John Prince Research Forest"] <- "JPRF"
 ggplot (data, aes (x = (delta_prop_mpb_all_15_year_area_ha*100), 
                    y = delta_af_survival_rate_all)) +
   geom_point () +
   geom_smooth (method = lm) +
   facet_grid (.~name_sa, scales = "free") +
-  labs (title = "Change in Adult Female Moose Survival Rate by Change in Percent of Area that 
-is Mountain Pine Beetle (MPB) Disturbed Stands <15 years old in the Study Area MCPs",
+  labs (title = "Figure 18. Change in Adult Female Moose Survival Rate by Change in Percent 
+of Area that is Mountain Pine Beetle (MPB) Disturbed Stands <15 years old 
+in the Study Area MCPs",
         x = "Change in Percent of Area that is MPB Disturbed Stands  <15 years old",
         y = "Change in Adult Female Moose Survival Rate") +
   theme (axis.text.x = element_text (angle = 45))
 ```
 
-- what about calves?
-  - over 8 year period
-  - no consistent trend
-  
-```{r, total area mpb <8 years old x calves/100 cows, eval = T, echo = F}
+### Relationship Between Mountain Pine Beetle Disturbance and Calf/Cow Ratios
+There was no clear relationship between the area of less than 8 year old MPB disturbed stands and the ratio of calves/100 cows across the five study areas (Fig. 19). There was a positive relationship in the Big Creek, Entiako and Prince George South study areas, a negative relationship in the JPRF study area and no relationship in the Bonaparte study area.
+
+```{r, mpb lt 8 years old x cow/calf, eval = T, echo = F, message = F, warning = F}
 data <- read.csv (here ("./data/data.csv"))
+levels (data$name_sa) [levels(data$name_sa) == "John Prince Research Forest"] <- "JPRF"
 ggplot (data, aes (x = (mpb_all_8_year_area_ha*0.01), 
                    y = calves_100cows)) +
   geom_point () +
   geom_smooth (method = lm) +
   facet_grid (.~name_sa, scales = "free") +
-  labs (title = "Moose Calf/100 Cows Ratio by Total Area of Mountain Pine Beetle (MPB) 
-Disturbed Stands <8 years old in the Study Area MCPs",
-        x = "Total Area of Mountain Pine Beetle (MPB) Disturbed Stands  <8 years old (km2)",
+  labs (title = "Figure 19. Moose Calf/100 Cows Ratio by Total Area of Mountain Pine 
+Beetle (MPB) Disturbed Stands Less Than 8 years old in the Study Area MCPs",
+        x = "Total Area of Mountain Pine Beetle (MPB) Disturbed Stands Less Than 8 years old (km2)",
         y = "Calves/100 Cows") 
 ```
 
-- over 15 years
-  - again, no consistent pattern
+Similarly, there was no clear relationship between the percent area of less than 15 year old MPB disturbed stands and adult calf/cow ratios across the five study areas (Fig. 20). There was a negative relationship in the Big Creek and Prince George South study areas, positive in the JPRF study area and no relationship in the Bonaparte and Entiako study areas.
 
-```{r, total area mpb <15 years old x calves/100 cows, eval = T, echo = F}
+```{r, mpb lt 15 years old x cow/calf, eval = T, echo = F, message = F, warning = F}
 data <- read.csv (here ("./data/data.csv"))
+levels (data$name_sa) [levels(data$name_sa) == "John Prince Research Forest"] <- "JPRF"
 ggplot (data, aes (x = (mpb_all_15_year_area_ha*0.01), 
                    y = calves_100cows)) +
   geom_point () +
   geom_smooth (method = lm) +
   facet_grid (.~name_sa, scales = "free") +
-  labs (title = "Moose Calf/100 Cows Ratio by Total Area of Mountain Pine Beetle (MPB) 
-Disturbed Stands <15 years old in the Study Area MCPs",
-        x = "Total Area of Mountain Pine Beetle (MPB) Disturbed Stands <15 years old (km2)",
+  labs (title = "Figure 20. Moose Calf/100 Cows Ratio by Total Area of Mountain Pine 
+Beetle (MPB) Disturbed Stands Less Than 15 years old in the Study Area MCPs",
+        x = "Total Area of Mountain Pine Beetle (MPB) Disturbed Stands Less Than 15 years old (km2)",
         y = "Calves/100 Cows") 
 ```
 
+There was no clear relationship between the change in area of less than 8 year old MPB disturbed stands and the change in the ratio of calves/100 cows across the five study areas (Fig. 21). There was a positive relationship in the Big Creek, Entiako and Prince George South study areas, a negative relationship in the JPRF study area and no relationship in the Bonaparte study area.
 
-- if we consider rate of change
- - no clear pattern across study areas
-
-```{r, change in proportion area mpb <8 years old x cow/calf rate change, eval = T, echo = F}
+```{r, delta perc mpb lt 8 years old x delta cow/calf, eval = T, echo = F, message = F, warning = F}
 data <- read.csv (here ("./data/data.csv"))
+levels (data$name_sa) [levels(data$name_sa) == "John Prince Research Forest"] <- "JPRF"
 ggplot (data, aes (x = (delta_prop_mpb_all_8_year_area_ha*100), 
                    y = delta_calves_100cows)) +
   geom_point () +
   geom_smooth (method = lm) +
   facet_grid (.~name_sa, scales = "free") +
-  labs (title = "Change in Moose Calf/100 Cows Ratio by Change in Percent of Area that 
-is Mountain Pine Beetle (MPB) Disturbed Stands <8 years old in the Study Area MCPs",
+  labs (title = "Figure 21. Change in Moose Calf/100 Cows Ratio by Change in Percent of Area 
+that is Mountain Pine Beetle (MPB) Disturbed Stands Less Than 8 years old in the Study Area MCPs",
         x = "Change in Percent of Area that is Mountain Pine Beetle (MPB) 
-Disturbed Stands <8 years old",
+Disturbed Stands Less Than 8 years old",
         y = "Change in Moose Calf/100 Cows Ratio") +
   theme (axis.text.x = element_text (angle = 45))
 ```
 
-- over a 15 year period 
-  - no clear pattern again
-  
-```{r, change in proportion area cut <15 years old x cow/calf rate change, eval = T, echo = F}
+Finally, there was no clear relationship between the change in area of less than 15 year old MPB disturbed stands and the change in the ratio of calves/100 cows across the five study areas (Fig. 22). There was a positive relationship in the Big Creek and Bonaparte study areas, a negative relationship in the Prince George South study area and no relationship in the Entiako and JPRF study areas.
+
+```{r, delta perc mpb lt 15 years old x delta cow/calf, eval = T, echo = F, message = F, warning = F}
 data <- read.csv (here ("./data/data.csv"))
+levels (data$name_sa) [levels(data$name_sa) == "John Prince Research Forest"] <- "JPRF"
 ggplot (data, aes (x = (delta_prop_mpb_all_15_year_area_ha*100), 
                    y = delta_calves_100cows)) +
   geom_point () +
   geom_smooth (method = lm) +
   facet_grid (.~name_sa, scales = "free") +
-  labs (title = "Change in Moose Calf/100 Cows Ratio by Change in Percent of Area that 
-is Mountain Pine Beetle (MPB) Disturbed Stands <15 years old in the 
-Study Area MCPs",
-        x = "Change in Percent of Area that is Mountain Pine Beetle (MPB) Disturbed Stands <15 years old",
+  labs (title = "Figure 22. Change in Moose Calf/100 Cows Ratio by Change in Percent of Area 
+that is Mountain Pine Beetle (MPB) Disturbed Stands Less Than 15 years old in 
+the Study Area MCPs",
+        x = "Change in Percent of Area that is Mountain Pine Beetle (MPB) Disturbed Stands 
+Less Than 15 years old",
         y = "Change in Moose Calf/100 Cows Ratio") +
   theme (axis.text.x = element_text (angle = 45))
 ```
 
+### Cumulative Disturbance 
+I considered the relationship between adult female moose survival rate and MPB disturbed stands plus cutblocks (i.e., cumulative disturbance). Note that care should be taken in interpreting these cumulative disturbance results, as they don't account for spatial overlap of disturabnce types, and thus 'double-count' disturbances where they overlap. Nevertheless, here they likely provide some indication of whether both disturbance types together might be related to moose populaiton parameter estimates.
 
-- there may be some efefct of mpb on adult female surival rate, when consider 15 year effect, but in general no clear efefct here
+I found no clear relationship between adult female moose survival rate and cumulative disturbance less than 8 (Fig. 23) or 15 (Fig. 24) years old.
 
+```{r, area lt 8 years old x survival rate, eval = T, echo = F, message = F, warning = F}
+data <- read.csv (here ("./data/data.csv"))
+levels (data$name_sa) [levels(data$name_sa) == "John Prince Research Forest"] <- "JPRF"
+ggplot (data, aes (x = (mpb_all_8_year_area_ha*0.01) + (cut_8_year_area_ha*0.01), 
+                   y = af_survival_rate_all)) +
+  geom_point () +
+  geom_smooth (method = lm) +
+  facet_grid (.~name_sa, scales = "free") +
+  labs (title = "Figure 23. Adult Female Moose Survival Rate by Total Area of Mountain Pine 
+Beetle (MPB) Disturbed Stands and Cutblocks Less Than 8 Years Old in the 
+Study Area MCPs",
+        x = "Total Area of Disturbed Stands Less Than 8 Years Old (km2)",
+        y = "Adult Female Moose Survival Rate") +
+  theme (axis.text.x = element_text (angle = 45)) 
+```
 
+```{r, area lt 15 years old x survival rate, eval = T, echo = F, message = F, warning = F}
+data <- read.csv (here ("./data/data.csv"))
+levels (data$name_sa) [levels(data$name_sa) == "John Prince Research Forest"] <- "JPRF"
+ggplot (data, aes (x = (mpb_all_15_year_area_ha*0.01) + (cut_15_year_area_ha*0.01), 
+                   y = af_survival_rate_all)) +
+  geom_point () +
+  geom_smooth (method = lm) +
+  facet_grid (.~name_sa, scales = "free") +
+  labs (title = "Figure 24. Adult Female Moose Survival Rate by Total Area of Mountain Pine 
+Beetle (MPB) Disturbed Stands and Cutblocks Less Than 15 Years Old in the 
+Study Area MCPs",
+        x = "Total Area of Disturbed Stands Less Than 15 Years Old (km2)",
+        y = "Adult Female Moose Survival Rate") +
+  theme (axis.text.x = element_text (angle = 45)) 
+```
 
+I also found no clear relationship between change in adult female moose survival rate and change cumulative disturbance less than 8 (Fig. 25) or 15 (Fig. 26) years old.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-```{r exploratory stats and data vis, echo = T, message = F, warning = F}
-
-
-  
-
-
-
-
-
-
-
-
-### OUTLIERS ###
-ggplot (data, aes (x = pttype, y = slope)) +
-        geom_boxplot (outlier.colour = "red") +
-        labs (title = "Boxplot DU7, Early Winter Slope at Available (0) and Used (1) Locations",
-              x = "Available (0) and Used (1) Locations",
-              y = "Slope")
-
-
-
-### HISTOGRAMS ###
-ggplot (rsf.data.terrain.water.du7.ew, aes (x = slope, fill = pttype)) + 
-          geom_histogram (position = "dodge", binwidth = 5) +
-          labs (title = "Histogram DU7, Early Winter Slope at Available (0) and Used (1) Locations",
-                x = "Slope",
-                y = "Count") +
-          scale_fill_discrete (name = "Location Type")
-
-
-### CORRELATION ###
-corr.terrain.water.du7.ew <- rsf.data.terrain.water.du7.ew [c (10:15)]
-corr.terrain.water.du7.ew <- round (cor (corr.terrain.water.du7.ew, method = "spearman"), 3)
-ggcorrplot (corr.terrain.water.du7.ew, type = "lower", lab = TRUE, tl.cex = 10,  lab_size = 3,
-            title = "Terrain and Water Resource Selection Function Model
-            Covariate Correlations for DU7, Early Winter")
-ggsave ("C:\\Work\\caribou\\clus_github\\reports\\caribou_rsf\\plots\\corr_terrain_water_du7_ew.png")
-
-
-
+```{r, delta area lt 8 years old x delta survival rate, eval = T, echo = F, message = F, warning = F}
+data <- read.csv (here ("./data/data.csv"))
+levels (data$name_sa) [levels(data$name_sa) == "John Prince Research Forest"] <- "JPRF"
+ggplot (data, aes (x = (delta_mpb_all_8_year_area_ha*0.01) + (delta_cut_8_year_area_ha*0.01), 
+                   y = delta_af_survival_rate_all)) +
+  geom_point () +
+  geom_smooth (method = lm) +
+  facet_grid (.~name_sa, scales = "free") +
+  labs (title = "Figure 25. Change in Adult Female Moose Survival Rate by Change in Total 
+Area of Mountain Pine Beetle (MPB) Disturbed Stands and Cutblocks Less 
+Than 8 Years Old in the Study Area MCPs",
+        x = "Change in Total Area of Disturbed Stands Less Than 8 Years Old (km2)",
+        y = "Change in Adult Female Moose Survival Rate") +
+  theme (axis.text.x = element_text (angle = 45)) 
 ```
 
 
+```{r, delta area lt 8 years old x delta survival rate, eval = T, echo = F, message = F, warning = F}
+data <- read.csv (here ("./data/data.csv"))
+levels (data$name_sa) [levels(data$name_sa) == "John Prince Research Forest"] <- "JPRF"
+ggplot (data, aes (x = (delta_mpb_all_15_year_area_ha*0.01) + (delta_cut_15_year_area_ha*0.01), 
+                   y = delta_af_survival_rate_all)) +
+  geom_point () +
+  geom_smooth (method = lm) +
+  facet_grid (.~name_sa, scales = "free") +
+  labs (title = "Figure 26. Change in Adult Female Moose Survival Rate by Change in Total 
+Area of Mountain Pine Beetle (MPB) Disturbed Stands and Cutblocks Less 
+Than 15 Years Old in the Study Area MCPs",
+        x = "Change in Total Area of Disturbed Stands Less Than 15 Years Old (km2)",
+        y = "Change in Adult Female Moose Survival Rate") +
+  theme (axis.text.x = element_text (angle = 45)) 
+```
 
-### Model
+I considered the relationship between cow/calf ratios and MPB disturbed stands plus cutblocks (i.e., cumulative disturbance). I found no clear relationship between adult female moose survival rate and cumulative disturbance less than 8 (Fig. 27) or 15 (Fig. 28) years old.
 
+```{r, area lt 8 years old x cow/calf, eval = T, echo = F, message = F, warning = F}
+data <- read.csv (here ("./data/data.csv"))
+levels (data$name_sa) [levels(data$name_sa) == "John Prince Research Forest"] <- "JPRF"
+ggplot (data, aes (x = (mpb_all_8_year_area_ha*0.01) + (cut_8_year_area_ha*0.01), 
+                   y = calves_100cows)) +
+  geom_point () +
+  geom_smooth (method = lm) +
+  facet_grid (.~name_sa, scales = "free") +
+  labs (title = "Figure 27. Calf/100 Cows Ratios by Total Area of Mountain Pine 
+Beetle (MPB) Disturbed Stands and Cutblocks Less Than 8 Years Old in the 
+Study Area MCPs",
+        x = "Total Area of Disturbed Stands Less Than 8 Years Old (km2)",
+        y = "Calf/100 Cow Ratio") +
+  theme (axis.text.x = element_text (angle = 45)) 
+```
 
+```{r, area lt 15 years old x cow/calf, eval = T, echo = F, message = F, warning = F}
+data <- read.csv (here ("./data/data.csv"))
+levels (data$name_sa) [levels(data$name_sa) == "John Prince Research Forest"] <- "JPRF"
+ggplot (data, aes (x = (mpb_all_15_year_area_ha*0.01) + (cut_15_year_area_ha*0.01), 
+                   y = calves_100cows)) +
+  geom_point () +
+  geom_smooth (method = lm) +
+  facet_grid (.~name_sa, scales = "free") +
+  labs (title = "Figure 28. Calf/100 Cows Ratios by Total Area of Mountain Pine 
+Beetle (MPB) Disturbed Stands and Cutblocks Less Than 15 Years Old in the 
+Study Area MCPs",
+        x = "Total Area of Disturbed Stands Less Than 15 Years Old (km2)",
+        y = "Calf/100 Cow Ratio") +
+  theme (axis.text.x = element_text (angle = 45)) 
+```
+
+I also found no clear relationship between change in adult female moose survival rate and change cumulative disturbance less than 8 (Fig. 29) or 15 (Fig. 30) years old.
+
+```{r, delta area lt 8 years old x delta survival rate, eval = T, echo = F, message = F, warning = F}
+data <- read.csv (here ("./data/data.csv"))
+levels (data$name_sa) [levels(data$name_sa) == "John Prince Research Forest"] <- "JPRF"
+ggplot (data, aes (x = (delta_mpb_all_8_year_area_ha*0.01) + (delta_cut_8_year_area_ha*0.01), 
+                   y = delta_calves_100cows)) +
+  geom_point () +
+  geom_smooth (method = lm) +
+  facet_grid (.~name_sa, scales = "free") +
+  labs (title = "Figure 29. Change in Adult Female Moose Survival Rate by Change in Total 
+Area of Mountain Pine Beetle (MPB) Disturbed Stands and Cutblocks Less 
+Than 8 Years Old in the Study Area MCPs",
+        x = "Change in Total Area of Disturbed Stands Less Than 8 Years Old (km2)",
+        y = "Change in ACalf/100 Cow Ratio") +
+  theme (axis.text.x = element_text (angle = 45)) 
+```
+
+```{r, delta area lt 8 years old x delta survival rate, eval = T, echo = F, message = F, warning = F}
+data <- read.csv (here ("./data/data.csv"))
+levels (data$name_sa) [levels(data$name_sa) == "John Prince Research Forest"] <- "JPRF"
+ggplot (data, aes (x = (delta_mpb_all_15_year_area_ha*0.01) + (delta_cut_15_year_area_ha*0.01), 
+                   y = delta_calves_100cows)) +
+  geom_point () +
+  geom_smooth (method = lm) +
+  facet_grid (.~name_sa, scales = "free") +
+  labs (title = "Figure 30. Change in Adult Female Moose Survival Rate by Change in Total 
+Area of Mountain Pine Beetle (MPB) Disturbed Stands and Cutblocks Less 
+Than 15 Years Old in the Study Area MCPs",
+        x = "Change in Total Area of Disturbed Stands Less Than 15 Years Old (km2)",
+        y = "Change in Calf/100 Cow Ratio") +
+  theme (axis.text.x = element_text (angle = 45)) 
+```
+
+## Preliminary Conclusions
+Across the five study areas. there was no clear relationship between landscape disturbance, here defined as cutblocks and MBP distrubed stands, and moose population parameters, i.e., adult female survival and calves/100 cows ratio. The exception may have been the relationship beetween less than 15 year old MPB disturbed stands and change in adult female survival rate (Fig. 16), as this was consistently negative across the five study areas. However, this may have just been a stastical fluke, as I examined the data in a multitude of ways, and there was a likelihood that at least one of these ways would show the realtionship I was looking for. 
+
+Using the population parameter data here I cannot reject the null hypothesis of the LCH. However, this does not mean the LCH is not valid, but it is clearly diffcult to test at a 'study area scale' with only five study areas (i.e., n = 5) over a four year period. This justifies the need to implement long-term (i.e., multi-decade) monitoring programs to evaluate the effects of landscape change on wildlife.    
