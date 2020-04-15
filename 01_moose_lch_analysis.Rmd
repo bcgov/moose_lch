@@ -40,7 +40,7 @@ Here I document how I estimated landscape metrics to explore the moose 'landscap
 
 ## Methods
 ### Study Areas
-The LCH was tested by sampling moose survival rates in the Big Creek, Bonaparte, Entiako, John Prince Research Forest (JPRF) and Prince George South study areas. These five study areas were selected because they had varied levels of MPB and forestry disturbance. A sample of moose in each study area were captured annually and collared with global positioning system (GPS) telemetry collars. Annual moose study area boundaries were determined by calculating the 100% minimum convex polygon (MCP) of annual sampled adult female moose GPS locations in each area. Moose locations were collected for four years from 2015 to 2018 (except Entiako, where data was also collected in 2014), and thus study area boundaries were re-calculated for each of these years. Each study area can be considered as a landscape 'treatment', and each were sampled annually for a four or five year period.    
+The LCH was tested by sampling moose survival rates in the Big Creek, Bonaparte, Entiako, John Prince Research Forest (JPRF) and Prince George South study areas. These five study areas were selected because they had varied levels of MPB and forestry disturbance. A sample of moose in each study area were captured annually and collared with global positioning system (GPS) telemetry collars. Annual study area boundaries were determined by calculating the 100% minimum convex polygon (MCP) of annual sampled adult female moose GPS locations in each area. Moose locations were collected for four years from 2015 to 2018 (except Entiako, where data was also collected in 2014), and thus study area boundaries were re-calculated for each of these years. Each study area can be considered as a landscape 'treatment', and each were sampled annually for a four or five year period.    
 
 ```{r, management unit spatial data, eval = F, echo = F, message = F, warning = F, include = F}
 # load the mcp's
@@ -388,7 +388,7 @@ table.pop.data = data.table(
 )
 
 kable (table.pop.data,
-       caption = "<b>Table 1. Moose Population Parameter Estimates.<b>",
+       caption = "<b>Table 1. Moose Population Parameter Estimates by Study Area and Year.<b>",
        col.names = c("Study Area",
                      "Adult Female Survival Rate (all mortality factors)",
                       "Adult Female Survival Rate (hunting mortality only)",
@@ -419,8 +419,8 @@ data [is.na (data)] <- 0
 write.csv (data, here ("./data/data.csv"))
 ```
 
-### Mixed Effects Model of Relationship Between Adult Female Moose Survival and Habitat
-We wanted to test the effect of landscape disturbance on moose survival across the interior of BC (i.e., the 'population-level' effect), and we repeteadly sampled moose in specific landscapes (i.e., study area 'subjects') with different levels of disturbance (i.e., treatments). To correctly assess the population-level effect of disturbance, we needed to account for repeated sampling of subjects in our regression model. Thus, we used a mixed effects regression model that included a random effect intercept for each study area to account for the fact that each study area had unique disturbance levels, and an autocorrelation structure with a lag of 1 (AR1), which fits the model accounting for the fact that samples from the same study area are correlated with each other. These models were fit using the [nlme](https://cran.r-project.org/web/packages/nlme/nlme.pdf) pacakge in program R.
+### Mixed Effects Model of Relationship Between Adult Female Moose Survival and Landscape Disturbance
+We wanted to test the effect of landscape disturbance on moose survival across the interior of BC (i.e., the 'population-level' effect), and we repeatedly sampled moose in specific landscapes (i.e., study area 'subjects') with different levels of disturbance (i.e., treatments). To correctly assess the population-level effect of disturbance, we needed to account for repeated sampling of subjects in our regression model. Thus, we used a mixed effects regression model that included a random effect intercept for each study area to account for the fact that each study area had unique disturbance levels, and an autocorrelation structure with a lag of 1 (AR1), which fits the model accounting for the fact that samples from the same study area are correlated with each other. These models were fit using the [nlme](https://cran.r-project.org/web/packages/nlme/nlme.pdf) pacakge in program R.
 
 ## Preliminary Results
 Here I provide a preliminary description of the relationship between estimates of landscape disturbance and moose adult female survival. Entiako was typically the largest study area, at approximately 1,000,000 ha, and Bonaparte was typically the smallest study area, at approximately 320,000 ha (Table 2). The JPRF study area had typically the highest amount of less than 9 year old cutblocks. The Big Creek study area typically had the highest amount of less than 9 year old MPB disturbed forest stands.
@@ -489,7 +489,7 @@ ggplot (data, aes (x = prop_cut_8_year_area_ha,
                    y = predict (lme.fit, data))) +
   labs (title = "Figure 2. Adult Female Moose Survival Rate by Proportion of Area of Cutblocks 
 Less Than 9 Years Old in the Study Area MCPs",
-        x = "Porportion Cutblocks Less Than 9 years Old",
+        x = "Proportion Cutblocks Less Than 9 years Old",
         y = "Adult Female Moose Survival Rate",
        caption = "Note: Black line shows model fitted relationship.") + 
   scale_shape_discrete (name = "Study Area") +
@@ -519,7 +519,7 @@ ggplot (data, aes (x = prop_cut_8_year_area_ha,
   labs (title = "Figure 3. Adult Female Moose Survival Rate, When Considering Wolf 
 Mortalities Only, by Proportion of Area of Cutblocks Less Than 9 Years Old 
 in the Study Area MCPs",
-        x = "Porportion Cutblocks Less Than 9 years Old",
+        x = "Proportion Cutblocks Less Than 9 years Old",
         y = "Adult Female Moose Survival Rate (Wolf Mortalities)",
        caption = "Note: Black line shows model fitted relationship.") + 
   scale_shape_discrete (name = "Study Area") +
@@ -548,7 +548,7 @@ ggplot (data, aes (x = prop_cut_8_year_area_ha,
   labs (title = "Figure 4. Adult Female Moose Survival Rate, When Considering Hunting 
 Mortalities Only, by Proportion of Area of Cutblocks Less Than 9 Years Old 
 in the Study Area MCPs",
-        x = "Porportion Cutblocks Less Than 9 years Old",
+        x = "Proportion Cutblocks Less Than 9 years Old",
         y = "Adult Female Moose Survival Rate  (Hunting Mortalities)",
        caption = "Note: Black line shows model fitted relationship.") + 
   scale_shape_discrete (name = "Study Area") +
@@ -575,7 +575,7 @@ ggplot (data, aes (x = prop_mpb_all_8_year_area_ha,
                    y = predict (lme.fit, newdata = data, level = 0))) +
   labs (title = "Figure 5. Adult Female Moose Survival Rate by Proportion of Area of Mountain 
 Pine Beetle Disturbed Stands Less Than 9 Years Old in the Study Area MCPs",
-        x = "Porportion Mountain Pine Beetle Disturbed Stands Less Than 9 years Old",
+        x = "Proportion Mountain Pine Beetle Disturbed Stands Less Than 9 years Old",
         y = "Adult Female Moose Survival Rate",
        caption = "Note: Black line shows model fitted relationship.") + 
   scale_shape_discrete (name = "Study Area") +
@@ -584,7 +584,7 @@ Pine Beetle Disturbed Stands Less Than 9 Years Old in the Study Area MCPs",
   theme_classic () 
 ```
 
-When considering only mortalities from wolves (Fig. 6), the effect of less than 9 year old cutblocks on survival was not statistically significant (*t-value* = 0.12, *p-value* = 0.836), and close to zero. 
+When considering only mortalities from wolves (Fig. 6), the effect of less than 9 year old mountain pine beetle disturbed stands on survival was not statistically significant (*t-value* = 0.12, *p-value* = 0.836), and close to zero. 
 
 ```{r, mixed model regression area mpb lt 9 yo x survival rate wolves, eval = T, echo = F, message = F, warning = F}
 data <- read.csv (here ("./data/data.csv"))
@@ -604,7 +604,7 @@ ggplot (data, aes (x = prop_mpb_all_8_year_area_ha,
   labs (title = "Figure 6. Adult Female Moose Survival Rate, When Considering Wolf 
 Mortalities Only, by Proportion of Area of Mountain Pine Beetle 
 Disturbed Stands Less Than 9 Years Old in the Study Area MCPs",
-        x = "Porportion Mountain Pine Beetle Disturbed Stands Less Than 9 years Old",
+        x = "Proportion Mountain Pine Beetle Disturbed Stands Less Than 9 years Old",
         y = "Adult Female Moose Survival Rate (Wolf Mortalities)",
        caption = "Note: Black line shows model fitted relationship.") + 
   scale_shape_discrete (name = "Study Area") +
@@ -614,7 +614,7 @@ Disturbed Stands Less Than 9 Years Old in the Study Area MCPs",
 
 ```
 
-When considering only mortalities from hunting (Fig. 7), the effect of less than 9 year old cutblocks was not statistically significant (*t-value* = 0.13, *p-value* = 0.905), and close to zero. 
+When considering only mortalities from hunting (Fig. 7), the effect of less than 9 year old mountain pine beetle disturbed stands was not statistically significant (*t-value* = 0.13, *p-value* = 0.905), and close to zero. 
 
 ```{r, mixed model regression area mpb lt 9 yo x survival rate hunt, eval = T, echo = F, message = F, warning = F}
 data <- read.csv (here ("./data/data.csv"))
@@ -634,7 +634,7 @@ ggplot (data, aes (x = prop_mpb_all_8_year_area_ha,
   labs (title = "Figure 7. Adult Female Moose Survival Rate, When Considering Hunting 
 Mortalities Only, by Proportion of Area of Mountain Pine Beetle 
 Disturbed Stands Less Than 9 Years Old in the Study Area MCPs",
-        x = "Porportion Mountain Pine Beetle Disturbed Stands Less Than 9 years Old",
+        x = "Proportion Mountain Pine Beetle Disturbed Stands Less Than 9 years Old",
         y = "Adult Female Moose Survival Rate (Hunting Mortalities)",
        caption = "Note: Black line shows model fitted relationship.") + 
   scale_shape_discrete (name = "Study Area") +
@@ -645,7 +645,7 @@ Disturbed Stands Less Than 9 Years Old in the Study Area MCPs",
 ```
 
 ### Cumulative Disturbance 
-I considered the relationship between adult female moose survival rate and MPB disturbed stands plus cutblocks added together (i.e., cumulative disturbance). Across the study areas, there was a positive relationship between adult female moose survival and the area of less than 9 year disturbed stands (Fig. 8). The effect was statistically significant (*t-value* = 2.51, *p-value* = 0.026), and each 10% increase in the percent of area of the study area that was less than 9 year old disturbed stands resulted in an approximately 0.05 increase in adult female moose survival. 
+I considered the relationship between adult female moose survival rate and MPB disturbed stands plus cutblocks added together (i.e., cumulative disturbance). Across the study areas, there was a positive relationship between adult female moose survival and the area of less than 9 year disturbed stands (Fig. 8). The effect was statistically significant (*t-value* = 2.51, *p-value* = 0.026), and each 10% increase in the percent of area of the study area that was less than 9 year old disturbed stands resulted in an approximately 0.06 increase in adult female moose survival. 
 
 ```{r, mixed model regression area all lt 9 yo x survival rate, eval = T, echo = F, message = F, warning = F}
 data <- read.csv (here ("./data/data.csv"))
@@ -663,7 +663,7 @@ ggplot (data, aes (x = prop_disturb_all_8_year,
                    y = predict (lme.fit, newdata = data, level = 0))) +
   labs (title = "Figure 8. Adult Female Moose Survival Rate by Proportion of Area of 
 Disturbed Stands Less Than 9 Years Old in the Study Area MCPs",
-        x = "Porportion Disturbed Stands and Cutblocks Less Than 9 years Old",
+        x = "Proportion Disturbed Stands and Cutblocks Less Than 9 years Old",
         y = "Adult Female Moose Survival Rate",
        caption = "Note: Black line shows model fitted relationship.") + 
   scale_shape_discrete (name = "Study Area") +
@@ -693,7 +693,7 @@ ggplot (data, aes (x = prop_disturb_all_8_year,
                    y = predict (lme.fit, newdata = data, level = 0))) +
   labs (title = "Figure 9. Adult Female Moose Survival Rate, When Considering Wolf 
 Mortalities Only, by Proportion of Area of Disturbed Stands Less Than 9 Years Old in the Study Area MCPs",
-        x = "Porportion Disturbed Stands Less Than 9 years Old",
+        x = "Proportion Disturbed Stands Less Than 9 years Old",
         y = "Adult Female Moose Survival Rate (Wolf Mortalities)",
        caption = "Note: Black line shows model fitted relationship.") + 
   scale_shape_discrete (name = "Study Area") +
@@ -721,10 +721,10 @@ ggplot (data, aes (x = prop_disturb_all_8_year,
   geom_point (aes (shape = name_sa)) +
   geom_line (aes (x = prop_disturb_all_8_year, 
                    y = predict (lme.fit, newdata = data, level = 0))) +
-  labs (title = "Figure 7. Adult Female Moose Survival Rate, When Considering Hunting 
+  labs (title = "Figure 10. Adult Female Moose Survival Rate, When Considering Hunting 
 Mortalities Only, by Proportion of Area of Disturbed Stands Than 9 Years Old 
 in the Study Area MCPs",
-        x = "Porportion Disturbed Stands Less Than 9 years Old",
+        x = "Proportion Disturbed Stands Less Than 9 years Old",
         y = "Adult Female Moose Survival Rate (Hunting Mortalities)",
        caption = "Note: Black line shows model fitted relationship.") + 
   scale_shape_discrete (name = "Study Area") +
