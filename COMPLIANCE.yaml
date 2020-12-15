@@ -5,7 +5,6 @@ description: |
 spec:
   - name: PIA
     status: not-required
-    last-updated: '2020-01-17T00:00:55.048Z'
   - name: STRA
-    status: exempt
-    last-updated: '2020-01-17T00:00:55.048Z'
+    status: not-required
+    last-updated: '2020-04-15T00:15:00.867Z'
